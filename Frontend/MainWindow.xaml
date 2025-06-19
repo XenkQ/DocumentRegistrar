@@ -6,14 +6,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Frontend"
+    Title="Document Registrar"
     mc:Ignorable="d">
 
-    <Window.SystemBackdrop>
-        <MicaBackdrop />
-    </Window.SystemBackdrop>
+    <Grid RowDefinitions="Auto,*">
+        <Grid
+            x:Name="AppTitleBar"
+            Grid.Row="0"
+            Height="30"
+            Background="{ThemeResource AppBarBackgroundThemeBrush}">
 
-    <Grid>
-        <TextBlock Text="Test" />
+            <TextBlock
+                x:Name="AppTitleTextBlock"
+                x:Uid="TitleBar"
+                Margin="40,0,0,0"
+                VerticalAlignment="Center"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                TextWrapping="NoWrap" />
+        </Grid>
+        <Frame x:Name="Body" Grid.Row="1" />
     </Grid>
 </Window>
