@@ -1,11 +1,16 @@
+using Frontend.ViewModels;
 using Microsoft.UI.Xaml.Controls;
 
 namespace Frontend.Views;
 
-public sealed partial class MainPage : Page
+internal sealed partial class MainPage : Page
 {
-    public MainPage()
+    private readonly MainViewModel _mainViewModel;
+
+    public MainPage(MainViewModel mainViewModel)
     {
+        _mainViewModel = mainViewModel;
+
         InitializeComponent();
     }
 }

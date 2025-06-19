@@ -8,8 +8,6 @@ internal sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-
-        Body.Navigate(typeof(MainPage));
     }
 
     public void SetBody(UIElement uiElement) => Body.Content = uiElement;

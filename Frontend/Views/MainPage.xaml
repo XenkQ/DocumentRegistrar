@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="using:Frontend.ViewModels"
+    xmlns:views="using:Frontend.Views"
     mc:Ignorable="d">
 
     <Grid>
@@ -25,6 +27,7 @@
             Padding="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            Command="{x:Bind _mainViewModel.NavigateToAdmissionDocumentsCommand}"
             Content="Dokumenty przyjęć" />
 
         <Button
@@ -34,6 +37,7 @@
             Padding="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
+            Command="{x:Bind _mainViewModel.NavigateToContractorsCommand}"
             Content="Kontrahenci" />
     </Grid>
 </Page>
