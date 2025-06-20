@@ -2,7 +2,7 @@
 
 namespace Backend.Models.DocumentPositionDtos;
 
-internal class CreateDocumentPositionDto
+public class CreateDocumentPositionDto
 {
     [Required]
     [StringLength(100)]

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models.AdmissionDocumentDtos;
 
-internal class AdmissionDocumentDto
+public class AdmissionDocumentDto
 {
     public int Id { get; set; }
 

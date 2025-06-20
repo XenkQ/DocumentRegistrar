@@ -2,7 +2,7 @@
 
 namespace Backend.Models.ContractorsDtos;
 
-internal class UpdateContractorDto
+public class UpdateContractorDto
 {
     [Required]
     public string Symbol { get; set; }

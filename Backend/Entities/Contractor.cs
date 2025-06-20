@@ -2,7 +2,7 @@
 
 namespace Backend.Entities;
 
-internal class Contractor
+public class Contractor
 {
     public int Id { get; set; }
 

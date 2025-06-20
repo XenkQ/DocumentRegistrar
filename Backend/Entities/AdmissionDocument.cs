@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities;
 
-internal class AdmissionDocument
+public class AdmissionDocument
 {
     public int Id { get; set; }
 

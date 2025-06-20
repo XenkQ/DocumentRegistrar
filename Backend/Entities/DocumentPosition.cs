@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities;
 
-internal class DocumentPosition
+public class DocumentPosition
 {
     public int Id { get; set; }
 

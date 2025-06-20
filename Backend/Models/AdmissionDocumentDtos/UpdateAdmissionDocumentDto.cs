@@ -2,7 +2,7 @@
 
 namespace Backend.Models.AdmissionDocumentDtos;
 
-internal class UpdateAdmissionDocumentDto
+public class UpdateAdmissionDocumentDto
 {
     [Required]
     public DateTime Date { get; set; }

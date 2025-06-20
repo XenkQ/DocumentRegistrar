@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
-internal class AdmissionDocumentController : ControllerBase
+[Route("api/admission-document")]
+public class AdmissionDocumentController : ControllerBase
 {
     private readonly IAdmissionDocumentService _admissionDocumentService;
 

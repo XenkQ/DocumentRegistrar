@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Backend.Data.Configurations;
 
-internal class ContractorConfiguration : IEntityTypeConfiguration<Contractor>
+public class ContractorConfiguration : IEntityTypeConfiguration<Contractor>
 {
     public void Configure(EntityTypeBuilder<Contractor> builder)
     {

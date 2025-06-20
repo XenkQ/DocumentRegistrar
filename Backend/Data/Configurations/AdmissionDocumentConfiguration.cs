@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Backend.Data.Configurations;
 
-internal class AdmissionDocumentConfiguration : IEntityTypeConfiguration<AdmissionDocument>
+public class AdmissionDocumentConfiguration : IEntityTypeConfiguration<AdmissionDocument>
 {
     public void Configure(EntityTypeBuilder<AdmissionDocument> builder)
     {

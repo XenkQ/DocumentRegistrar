@@ -2,7 +2,7 @@
 
 namespace Backend.Models.DocumentPositionDtos;
 
-internal class DocumentPositionDto
+public class DocumentPositionDto
 {
     public int Id { get; set; }
 

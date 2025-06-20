@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data;
 
-internal class AppDbContext : DbContext
+public class AppDbContext : DbContext
 {
     public DbSet<AdmissionDocument> AdmissionDocuments { get; set; }
     public DbSet<Contractor> Contractors { get; set; }

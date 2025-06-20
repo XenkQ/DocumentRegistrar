@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
 
-internal interface IAdmissionDocumentService
+public interface IAdmissionDocumentService
 {
     public int Create(CreateAdmissionDocumentDto dto);
 
@@ -17,7 +17,7 @@ internal interface IAdmissionDocumentService
     public bool Update(int id, UpdateAdmissionDocumentDto dto);
 }
 
-internal class AdmissionDocumentService : IAdmissionDocumentService
+public class AdmissionDocumentService : IAdmissionDocumentService
 {
     private readonly AppDbContext _dbContext;
     private readonly IMapper _mapper;

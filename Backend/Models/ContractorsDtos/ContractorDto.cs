@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models.ContractorsDtos;
 
-internal class ContractorDto
+public class ContractorDto
 {
     public int Id { get; set; }
 
