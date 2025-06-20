@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.Contractors;
+namespace Backend.Models.ContractorsDtos;
 
-internal class UpdateContractorsDto
+internal class UpdateContractorDto
 {
+    [Required]
     public string Symbol { get; set; }
 
+    [Required]
     [StringLength(100)]
     public string Name { get; set; }
 }

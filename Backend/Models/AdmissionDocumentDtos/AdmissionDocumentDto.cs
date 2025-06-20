@@ -1,7 +1,7 @@
-﻿using Backend.Models.Contractors;
+﻿using Backend.Models.DocumentPositionDtos;
 using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.AdmissionDocument;
+namespace Backend.Models.AdmissionDocumentDtos;
 
 internal class AdmissionDocumentDto
 {

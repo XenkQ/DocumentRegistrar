@@ -1,9 +1,8 @@
-﻿using Backend.Models.AdmissionDocument;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.Contractors;
+namespace Backend.Models.ContractorsDtos;
 
-internal class CreateContractorsDto
+internal class CreateContractorDto
 {
     [Required]
     public string Symbol { get; set; }

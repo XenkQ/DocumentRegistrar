@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.Contractors;
+namespace Backend.Models.DocumentPositionDtos;
 
 internal class CreateDocumentPositionDto
 {
