@@ -8,9 +8,9 @@ namespace Backend.Controllers;
 [Route("api/admission-document")]
 public class AdmissionDocumentController : ControllerBase
 {
-    private readonly IAdmissionDocumentService _admissionDocumentService;
+    private readonly AdmissionDocumentService _admissionDocumentService;
 
-    public AdmissionDocumentController(IAdmissionDocumentService admissionDocumentService)
+    public AdmissionDocumentController(AdmissionDocumentService admissionDocumentService)
     {
         _admissionDocumentService = admissionDocumentService;
     }
@@ -56,7 +56,7 @@ public class AdmissionDocumentController : ControllerBase
         }
 
         bool isUpdated = _admissionDocumentService.Update(id, value);
-        if (!isUpdated)
+        if (isUpdated)
         {
             return Ok();
         }

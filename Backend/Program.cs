@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddScoped<IAdmissionDocumentService, AdmissionDocumentService>();
+builder.Services.AddScoped<IContractorService, ContractorService>();
 
 var app = builder.Build();
 

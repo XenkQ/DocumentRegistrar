@@ -88,8 +88,6 @@ public class AdmissionDocumentService : IAdmissionDocumentService
 
         _mapper.Map(dto, admissionDocument);
 
-        admissionDocument.Contractor = contractor;
-
         _dbContext.SaveChanges();
 
         return true;
