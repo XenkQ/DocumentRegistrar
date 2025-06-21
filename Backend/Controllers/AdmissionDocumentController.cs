@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
 
-[ApiController]
 [Route("api/admission-document")]
+[ApiController]
 public class AdmissionDocumentController : ControllerBase
 {
-    private readonly AdmissionDocumentService _admissionDocumentService;
+    private readonly IAdmissionDocumentService _admissionDocumentService;
 
-    public AdmissionDocumentController(AdmissionDocumentService admissionDocumentService)
+    public AdmissionDocumentController(IAdmissionDocumentService admissionDocumentService)
     {
         _admissionDocumentService = admissionDocumentService;
     }
@@ -44,7 +44,7 @@ public class AdmissionDocumentController : ControllerBase
 
         var id = _admissionDocumentService.Create(dto);
 
-        return Created($"api/admission-document-dto/{id}", id);
+        return Created($"api/admission-document/{id}", id);
     }
 
     [HttpPut("{id}")]

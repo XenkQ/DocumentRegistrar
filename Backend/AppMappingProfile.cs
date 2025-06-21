@@ -13,15 +13,15 @@ public class AppMappingProfile : Profile
         CreateMap<AdmissionDocument, AdmissionDocumentDto>()
             .ForMember(m => m.ContractorName, c => c.MapFrom(s => s.Contractor.Name))
             .ForMember(m => m.ContractorSymbol, c => c.MapFrom(s => s.Contractor.Symbol));
-        CreateMap<CreateAdmissionDocumentDto, AdmissionDocumentDto>();
-        CreateMap<UpdateAdmissionDocumentDto, AdmissionDocumentDto>();
+        CreateMap<CreateAdmissionDocumentDto, AdmissionDocument>();
+        CreateMap<UpdateAdmissionDocumentDto, AdmissionDocument>();
 
         CreateMap<DocumentPosition, DocumentPositionDto>();
-        CreateMap<CreateDocumentPositionDto, DocumentPositionDto>();
-        CreateMap<UpdateDocumentPositionDto, DocumentPositionDto>();
+        CreateMap<CreateDocumentPositionDto, DocumentPosition>();
+        CreateMap<UpdateDocumentPositionDto, DocumentPosition>();
 
         CreateMap<Contractor, ContractorDto>();
-        CreateMap<UpdateContractorDto, ContractorDto>();
-        CreateMap<CreateContractorDto, ContractorDto>();
+        CreateMap<UpdateContractorDto, Contractor>();
+        CreateMap<CreateContractorDto, Contractor>();
     }
 }

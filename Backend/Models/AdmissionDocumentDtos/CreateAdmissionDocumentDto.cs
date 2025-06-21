@@ -5,7 +5,7 @@ namespace Backend.Models.AdmissionDocumentDtos;
 public class CreateAdmissionDocumentDto
 {
     [Required]
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     [Required]
     public string Symbol { get; set; }
