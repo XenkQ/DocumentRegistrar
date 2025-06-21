@@ -1,5 +1,5 @@
-﻿using Backend.Models.ContractorsDtos;
-using Backend.Services;
+﻿using Backend.Services;
+using Dtos.ContractorsDtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;

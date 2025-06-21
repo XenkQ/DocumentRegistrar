@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Backend.Data;
 using Backend.Entities;
-using Backend.Models.ContractorsDtos;
+using Dtos.ContractorsDtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;

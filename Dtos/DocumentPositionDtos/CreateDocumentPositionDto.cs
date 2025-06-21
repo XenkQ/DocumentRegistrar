@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.DocumentPositionDtos;
+namespace Dtos.DocumentPositionDtos;
 
-public class UpdateDocumentPositionDto
+public class CreateDocumentPositionDto
 {
     [Required]
     [StringLength(100)]

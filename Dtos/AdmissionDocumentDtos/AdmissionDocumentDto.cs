@@ -1,7 +1,7 @@
-﻿using Backend.Models.DocumentPositionDtos;
+﻿using Dtos.DocumentPositionDtos;
 using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.AdmissionDocumentDtos;
+namespace Dtos.AdmissionDocumentDtos;
 
 public class AdmissionDocumentDto
 {

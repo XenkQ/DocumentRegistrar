@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.AdmissionDocumentDtos;
+namespace Dtos.AdmissionDocumentDtos;
 
 public class UpdateAdmissionDocumentDto
 {

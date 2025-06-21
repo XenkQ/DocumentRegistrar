@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Backend.Data;
 using Backend.Entities;
-using Backend.Models.DocumentPositionDtos;
+using Dtos.DocumentPositionDtos;
 
 namespace Backend.Services;
 

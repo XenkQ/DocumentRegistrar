@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Models.ContractorsDtos;
+namespace Dtos.ContractorsDtos;
 
-public class UpdateContractorDto
+public class CreateContractorDto
 {
     [Required]
     public string Symbol { get; set; }

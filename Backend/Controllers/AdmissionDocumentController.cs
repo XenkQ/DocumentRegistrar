@@ -1,5 +1,5 @@
-﻿using Backend.Models.AdmissionDocumentDtos;
-using Backend.Services;
+﻿using Backend.Services;
+using Dtos.AdmissionDocumentDtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;

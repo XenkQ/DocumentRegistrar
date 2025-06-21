@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Fronte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{5F80CD3D-F9EF-4D49-B834-17E410531994}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtos", "Dtos\Dtos.csproj", "{A0082626-7D19-41DD-8148-39B35150F66D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -47,6 +49,18 @@ Global
 		{5F80CD3D-F9EF-4D49-B834-17E410531994}.Release|x64.Build.0 = Release|Any CPU
 		{5F80CD3D-F9EF-4D49-B834-17E410531994}.Release|x86.ActiveCfg = Release|Any CPU
 		{5F80CD3D-F9EF-4D49-B834-17E410531994}.Release|x86.Build.0 = Release|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Debug|x64.Build.0 = Debug|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Debug|x86.Build.0 = Debug|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Release|ARM64.Build.0 = Release|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Release|x64.ActiveCfg = Release|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Release|x64.Build.0 = Release|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Release|x86.ActiveCfg = Release|Any CPU
+		{A0082626-7D19-41DD-8148-39B35150F66D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

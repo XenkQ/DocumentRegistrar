@@ -1,5 +1,5 @@
-﻿using Backend.Models.DocumentPositionDtos;
-using Backend.Services;
+﻿using Backend.Services;
+using Dtos.DocumentPositionDtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;

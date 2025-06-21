@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Backend.Entities;
-using Backend.Models.AdmissionDocumentDtos;
-using Backend.Models.ContractorsDtos;
-using Backend.Models.DocumentPositionDtos;
+using Dtos.AdmissionDocumentDtos;
+using Dtos.ContractorsDtos;
+using Dtos.DocumentPositionDtos;
 
 namespace Backend;
 

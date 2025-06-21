@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Backend.Data;
 using Backend.Entities;
-using Backend.Models.AdmissionDocumentDtos;
+using Dtos.AdmissionDocumentDtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
