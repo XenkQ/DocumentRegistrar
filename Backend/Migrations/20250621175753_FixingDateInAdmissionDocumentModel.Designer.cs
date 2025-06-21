@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250621134128_ChangingAdmissionDocumentDateFiledToDateOnly")]
-    partial class ChangingAdmissionDocumentDateFiledToDateOnly
+    [Migration("20250621175753_FixingDateInAdmissionDocumentModel")]
+    partial class FixingDateInAdmissionDocumentModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,8 +36,8 @@ namespace Backend.Migrations
                     b.Property<int>("ContractorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
 
                     b.Property<string>("Symbol")
                         .IsRequired()

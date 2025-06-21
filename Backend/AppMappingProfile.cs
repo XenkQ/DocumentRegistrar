@@ -11,8 +11,9 @@ public class AppMappingProfile : Profile
     public AppMappingProfile()
     {
         CreateMap<AdmissionDocument, AdmissionDocumentDto>()
-            .ForMember(m => m.ContractorName, c => c.MapFrom(s => s.Contractor.Name))
-            .ForMember(m => m.ContractorSymbol, c => c.MapFrom(s => s.Contractor.Symbol));
+            .ForMember(dest => dest.ContractorName, opt => opt.MapFrom(src => src.Contractor.Name))
+            .ForMember(dest => dest.ContractorSymbol, opt => opt.MapFrom(src => src.Contractor.Symbol));
+        CreateMap<CreateAdmissionDocumentDto, AdmissionDocument>();
         CreateMap<CreateAdmissionDocumentDto, AdmissionDocument>();
         CreateMap<UpdateAdmissionDocumentDto, AdmissionDocument>();
 

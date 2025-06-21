@@ -35,7 +35,7 @@ public class AdmissionDocumentController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult Post([FromBody] CreateAdmissionDocumentDto dto)
+    public ActionResult Create([FromBody] CreateAdmissionDocumentDto dto)
     {
         if (!ModelState.IsValid)
         {

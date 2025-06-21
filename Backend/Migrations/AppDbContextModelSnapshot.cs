@@ -33,8 +33,8 @@ namespace Backend.Migrations
                     b.Property<int>("ContractorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
 
                     b.Property<string>("Symbol")
                         .IsRequired()

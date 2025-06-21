@@ -35,7 +35,7 @@ public class ContractorController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult Post([FromBody] CreateContractorDto dto)
+    public ActionResult Create([FromBody] CreateContractorDto dto)
     {
         if (!ModelState.IsValid)
         {

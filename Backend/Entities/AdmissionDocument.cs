@@ -8,7 +8,7 @@ public class AdmissionDocument
     public int Id { get; set; }
 
     [Required]
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     [Required]
     public string Symbol { get; set; }
@@ -20,7 +20,6 @@ public class AdmissionDocument
     [ForeignKey("ContractorId")]
     public Contractor Contractor { get; set; }
 
-    [Required]
     public List<DocumentPosition> DocumentPositions { get; set; }
         = new List<DocumentPosition>();
 }

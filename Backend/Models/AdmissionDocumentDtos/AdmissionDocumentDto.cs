@@ -23,7 +23,6 @@ public class AdmissionDocumentDto
     [StringLength(100)]
     public string ContractorName { get; set; }
 
-    [Required]
     public List<DocumentPositionDto> DocumentPositions { get; set; }
         = new List<DocumentPositionDto>();
 }

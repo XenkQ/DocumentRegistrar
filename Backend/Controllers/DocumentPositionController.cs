@@ -35,7 +35,7 @@ public class DocumentPositionController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult Post([FromBody] CreateDocumentPositionDto dto)
+    public ActionResult Create([FromBody] CreateDocumentPositionDto dto)
     {
         if (!ModelState.IsValid)
         {
