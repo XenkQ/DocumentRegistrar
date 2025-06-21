@@ -9,7 +9,7 @@
     Title="Document Registrar"
     mc:Ignorable="d">
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid Name="RootGrid" RowDefinitions="Auto,*">
         <Grid
             x:Name="AppTitleBar"
             Grid.Row="0"

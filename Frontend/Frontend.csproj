@@ -13,8 +13,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Views\AdmissionDocument\**" />
+    <EmbeddedResource Remove="Views\AdmissionDocument\**" />
+    <None Remove="Views\AdmissionDocument\**" />
+    <Page Remove="Views\AdmissionDocument\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Views\AdmissionDocumentsPage.xaml" />
+    <None Remove="Views\ContractorPages\ContractorPage.xaml" />
     <None Remove="Views\ContractorsPage.xaml" />
+    <None Remove="Views\DocumentPositionPages\DocumentPosition.xaml" />
+    <None Remove="Views\DocumentPositionPages\DocumentPositionsPage.xaml" />
     <None Remove="Views\MainPage.xaml" />
   </ItemGroup>
 
@@ -81,4 +90,27 @@
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
   </PropertyGroup>
+  <ItemGroup>
+    <PRIResource Remove="Views\AdmissionDocument\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DocumentPositionPages\DocumentPosition.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\ContractorPages\ContractorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\AdmissionDocumentPages\AdmissionDocumentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DocumentPositionPages\DocumentPositionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>

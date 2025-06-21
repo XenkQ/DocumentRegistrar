@@ -4,23 +4,23 @@ using Frontend.Views;
 
 namespace Frontend.ViewModels;
 
-public partial class MainViewModel
+public partial class DocumentPositionsViewModel
 {
     private readonly INavigationService _navigationService;
 
-    public MainViewModel(INavigationService navigationService)
+    public DocumentPositionsViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService;
     }
 
     [RelayCommand]
-    private void NavigateToContractors()
+    public void NavigateToAdmissionDocumentsPage()
     {
-        _navigationService.NavigateTo<ContractorsPage>();
+        _navigationService.NavigateTo<MainPage>();
     }
 
     [RelayCommand]
-    private void NavigateToAdmissionDocuments()
+    public void NavigateToDocumentPosition()
     {
         _navigationService.NavigateTo<AdmissionDocumentsPage>();
     }

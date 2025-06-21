@@ -1,16 +1,33 @@
 using Frontend.Views;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace Frontend;
 
-internal sealed partial class MainWindow : Window
+public sealed partial class MainWindow : Window
 {
     public MainWindow()
     {
         InitializeComponent();
+
+        Activated += MainWindow_Activated;
     }
 
-    public void SetBody(UIElement uiElement) => Body.Content = uiElement;
+    public void DisplayPage<TPage>(object parameter = null)
+        where TPage : Page
+    {
+        if (parameter is null)
+        {
+            Body.Navigate(typeof(TPage));
+        }
+        else
+        {
+            Body.Navigate(typeof(TPage), parameter);
+        }
+    }
 
-    public UIElement GetBody() => Body;
+    private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
+    {
+        DisplayPage<MainPage>();
+    }
 }

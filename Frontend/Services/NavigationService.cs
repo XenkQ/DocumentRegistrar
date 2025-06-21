@@ -1,34 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Frontend.Views;
 using Microsoft.UI.Xaml.Controls;
 using System;
 
 namespace Frontend.Services;
 
-internal interface INavigationService
+public interface INavigationService
 {
-    public void NavigateToPageByName(string name);
+    public void NavigateTo<TPage>(object parameter = null)
+        where TPage : Page;
 }
 
-internal class NavigationService : INavigationService
+public class NavigationService : INavigationService
 {
-    private readonly MainWindow _bodyContainer;
+    private readonly MainWindow _mainWindow;
 
-    public NavigationService(MainWindow bodyContainer)
+    public NavigationService(MainWindow mainWindow)
     {
-        _bodyContainer = bodyContainer;
+        _mainWindow = mainWindow;
     }
 
-    public void NavigateToPageByName(string name)
+    public void NavigateTo<TPage>(object parameter = null)
+        where TPage : Page
     {
-        Page page = name switch
-        {
-            nameof(MainPage) => Ioc.Default.GetRequiredService<MainPage>(),
-            nameof(ContractorsPage) => Ioc.Default.GetRequiredService<ContractorsPage>(),
-            nameof(AdmissionDocumentsPage) => Ioc.Default.GetRequiredService<AdmissionDocumentsPage>(),
-            _ => throw new ArgumentException($"Page with name {name} does not exist.", nameof(name)),
-        };
-
-        _bodyContainer.SetBody(page);
+        _mainWindow.DisplayPage<TPage>(parameter);
     }
 }
