@@ -23,7 +23,6 @@
     <None Remove="Views\AdmissionDocumentsPage.xaml" />
     <None Remove="Views\ContractorsPage.xaml" />
     <None Remove="Views\DocumentPositionPages\DocumentPositionsPage.xaml" />
-    <None Remove="Views\MainPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>

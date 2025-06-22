@@ -51,7 +51,7 @@
             FontSize="24"
             FontWeight="SemiBold"
             Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-            Text="Position Documents" />
+            Text="Pozycje Dokumentu" />
 
         <!--  Document Info  -->
         <Grid
