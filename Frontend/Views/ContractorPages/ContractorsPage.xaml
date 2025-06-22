@@ -16,7 +16,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <!--  Top Buttons  -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -26,7 +27,7 @@
             <Button
                 Grid.Column="0"
                 Width="100"
-                Margin="8,8,0,8"
+                Margin="0,0,8,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Command="{x:Bind _contractorsViewModel.NavigateToMainPageCommand}"
@@ -34,55 +35,83 @@
             <Button
                 Grid.Column="2"
                 Width="100"
-                Margin="0,8,8,8"
+                Margin="8,0,0,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Command="{x:Bind _contractorsViewModel.NavigateToContractorDetailsPageCommand}"
                 Content="Dodaj" />
         </Grid>
 
-        <ListView
+        <!--  Table-like ListView  -->
+        <Border
             Grid.Row="1"
-            Margin="8"
-            ItemsSource="{Binding Contractors}">
-            <ListView.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        FontWeight="Bold"
-                        Text="Nazwa" />
-                    <TextBlock
-                        Grid.Column="1"
-                        FontWeight="Bold"
-                        Text="Symbol" />
-                    <TextBlock Grid.Column="2" Text="" />
-                </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+            BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+            BorderThickness="1"
+            CornerRadius="4">
+            <ListView
+                Margin="0"
+                HorizontalContentAlignment="Stretch"
+                ItemsSource="{Binding Contractors}">
+                <ListView.Header>
+                    <Grid Height="40" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Name}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Symbol}" />
-                        <Button
-                            Grid.Column="3"
-                            Margin="0,0,4,0"
-                            Command="{Binding DataContext.NavigateToContractorDetailsPageCommand, ElementName=ContractorsPageRoot}"
-                            CommandParameter="{Binding}"
-                            Content="Edytuj" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="12,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            Text="Nazwa" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="12,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            Text="Symbol" />
+                        <TextBlock Grid.Column="2" Text="" />
                     </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="40" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                Margin="12,0"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                Text="{Binding Name}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="12,0"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                Text="{Binding Symbol}" />
+                            <StackPanel
+                                Grid.Column="2"
+                                Margin="0,0,12,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    Command="{Binding DataContext.NavigateToContractorDetailsPageCommand, ElementName=ContractorsPageRoot}"
+                                    CommandParameter="{Binding}"
+                                    Content="Edytuj" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
     </Grid>
 </Page>
