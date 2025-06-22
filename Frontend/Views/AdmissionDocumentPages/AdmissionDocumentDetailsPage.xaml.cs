@@ -2,9 +2,9 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace Frontend.Views.AdmissionDocumentPages;
 
-public sealed partial class AddAdmissionDocumentPage : Page
+public sealed partial class AdmissionDocumentDetailsPage : Page
 {
-    public AddAdmissionDocumentPage()
+    public AdmissionDocumentDetailsPage()
     {
         InitializeComponent();
     }

@@ -16,6 +16,8 @@ public sealed partial class DocumentPositionsPage : Page
     {
         _documentPositionsViewModel = documentPositionsViewModel;
 
+        DataContext = _documentPositionsViewModel;
+
         InitializeComponent();
     }
 }

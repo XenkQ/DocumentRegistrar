@@ -10,7 +10,7 @@ public interface IDocumentPositionApiService
 {
     Task<DocumentPositionDto> GetDocumentPositionAsync(int id);
 
-    Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsAsync();
+    Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsAsync(int admissionDocumentId);
 
     Task<int> CreateDocumentPositionAsync(CreateDocumentPositionDto dto);
 
@@ -21,14 +21,15 @@ public class DocumentPositionApiService : IDocumentPositionApiService
 {
     private readonly HttpClient _httpClient;
 
-    public DocumentPositionApiService(HttpClient httpClient)
+    public DocumentPositionApiService(IHttpClientFactory httpClientFactory)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("BackendApi");
     }
 
-    public async Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsAsync()
+    public async Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsAsync(int admissionDocumentId)
     {
-        var response = await _httpClient.GetAsync("api/document-position");
+        var response = await _httpClient.GetAsync(
+            $"api/document-position/under-admission-document/{admissionDocumentId}");
 
         response.EnsureSuccessStatusCode();
 

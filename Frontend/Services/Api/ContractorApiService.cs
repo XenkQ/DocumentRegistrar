@@ -21,9 +21,9 @@ public class ContractorApiService : IContractorApiService
 {
     private readonly HttpClient _httpClient;
 
-    public ContractorApiService(HttpClient httpClient)
+    public ContractorApiService(IHttpClientFactory httpClientFactory)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("BackendApi");
     }
 
     public async Task<IEnumerable<ContractorDto>> GetContractorsAsync()

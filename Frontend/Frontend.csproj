@@ -19,15 +19,17 @@
     <Page Remove="Views\AdmissionDocument\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="appsettings.json" />
     <None Remove="Views\AdmissionDocumentsPage.xaml" />
-    <None Remove="Views\ContractorPages\ContractorPage.xaml" />
     <None Remove="Views\ContractorsPage.xaml" />
-    <None Remove="Views\DocumentPositionPages\DocumentPosition.xaml" />
     <None Remove="Views\DocumentPositionPages\DocumentPositionsPage.xaml" />
     <None Remove="Views\MainPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -51,7 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.6" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.6" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4188" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
   </ItemGroup>
@@ -94,17 +99,17 @@
     <PRIResource Remove="Views\AdmissionDocument\**" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\DocumentPositionPages\DocumentPosition.xaml">
+    <Page Update="Views\DocumentPositionPages\DocumentPositionDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\ContractorPages\ContractorPage.xaml">
+    <Page Update="Views\ContractorPages\ContractorDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\AdmissionDocumentPages\AdmissionDocumentPage.xaml">
+    <Page Update="Views\AdmissionDocumentPages\AdmissionDocumentDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

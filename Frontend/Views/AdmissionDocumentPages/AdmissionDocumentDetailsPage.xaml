@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Frontend.Views.AdmissionDocumentPages.AdmissionDocumentDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Frontend.Views.AdmissionDocumentPages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Padding="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+
+        <Button
+            Grid.Row="0"
+            Grid.Column="0"
+            Width="100"
+            Content="Cofnij" />
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="0,0,8,0"
+            VerticalAlignment="Center"
+            Text="Data:" />
+        <TextBox
+            x:Name="DataTextBox"
+            Grid.Row="2"
+            Grid.Column="1"
+            Text="{Binding Data, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            Margin="0,8,8,0"
+            VerticalAlignment="Center"
+            Text="Symbol:" />
+        <TextBox
+            x:Name="SymbolTextBox"
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="0,8,0,0"
+            Text="{Binding Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="0"
+            Margin="0,8,8,0"
+            VerticalAlignment="Center"
+            Text="Kontrahent:" />
+        <ComboBox
+            x:Name="KontrahentComboBox"
+            Grid.Row="4"
+            Grid.Column="1"
+            Margin="0,8,0,0"
+            DisplayMemberPath="Name"
+            ItemsSource="{Binding Contractors}"
+            SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" />
+
+        <Button
+            Grid.Row="6"
+            Grid.Column="1"
+            Width="100"
+            HorizontalAlignment="Right"
+            Content="Zapisz" />
+    </Grid>
+</Page>

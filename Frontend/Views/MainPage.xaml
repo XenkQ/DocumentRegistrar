@@ -7,7 +7,6 @@
     xmlns:local="using:Frontend.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="using:Frontend.ViewModels"
-    xmlns:views="using:Frontend.Views"
     mc:Ignorable="d">
 
     <Grid>

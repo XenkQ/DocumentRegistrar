@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="using:Frontend.ViewModels"
+    x:Name="ContractorsPageRoot"
     mc:Ignorable="d">
 
     <Grid>
@@ -27,6 +29,7 @@
                 Margin="8,8,0,8"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
+                Command="{x:Bind _contractorsViewModel.NavigateToMainPageCommand}"
                 Content="Cofnij" />
             <Button
                 Grid.Column="2"
@@ -34,6 +37,7 @@
                 Margin="0,8,8,8"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
+                Command="{x:Bind _contractorsViewModel.NavigateToContractorDetailsCommand}"
                 Content="Dodaj" />
         </Grid>
 
@@ -66,13 +70,16 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding Name}" />
                         <TextBlock Grid.Column="1" Text="{Binding Symbol}" />
-                        <StackPanel Grid.Column="3" Orientation="Horizontal">
-                            <Button Margin="0,0,4,0" Content="Edytuj" />
-                            <Button Content="Zobacz" />
-                        </StackPanel>
+                        <Button
+                            Grid.Column="3"
+                            Margin="0,0,4,0"
+                            Command="{Binding DataContext.NavigateToContractorDetailsCommand, ElementName=ContractorsPageRoot}"
+                            CommandParameter="{Binding}"
+                            Content="Edytuj" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="using:Frontend.ViewModels"
     mc:Ignorable="d">
 
     <Grid>
@@ -27,6 +28,7 @@
                 Margin="8,8,0,8"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
+                Command="{x:Bind _admissionDocumentsViewModel.NavigateToMainPageCommand}"
                 Content="Cofnij" />
             <Button
                 Grid.Column="2"
@@ -34,6 +36,7 @@
                 Margin="0,8,8,8"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
+                Command="{x:Bind _admissionDocumentsViewModel.NavigateToCreateAdmissionDocumentCommand}"
                 Content="Dodaj" />
         </Grid>
 
@@ -76,10 +79,10 @@
                         <TextBlock Grid.Column="0" Text="{Binding Date}" />
                         <TextBlock Grid.Column="1" Text="{Binding Symbol}" />
                         <TextBlock Grid.Column="2" Text="{Binding ContractorName}" />
-                        <StackPanel Grid.Column="3" Orientation="Horizontal">
-                            <Button Margin="0,0,4,0" Content="Edytuj" />
-                            <Button Content="Zobacz" />
-                        </StackPanel>
+                        <Button
+                            Grid.Column="3"
+                            Margin="0,0,4,0"
+                            Content="Edytuj" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

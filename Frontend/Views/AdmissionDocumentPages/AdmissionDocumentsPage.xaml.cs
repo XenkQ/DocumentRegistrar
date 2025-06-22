@@ -16,6 +16,8 @@ public sealed partial class AdmissionDocumentsPage : Page
     {
         _admissionDocumentsViewModel = admissionDocumentsViewModel;
 
+        DataContext = _admissionDocumentsViewModel;
+
         InitializeComponent();
     }
 }

@@ -21,9 +21,9 @@ public class AdmissionDocumentApiService : IAdmissionDocumentApiService
 {
     private readonly HttpClient _httpClient;
 
-    public AdmissionDocumentApiService(HttpClient httpClient)
+    public AdmissionDocumentApiService(IHttpClientFactory httpClientFactory)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("BackendApi");
     }
 
     public async Task<IEnumerable<AdmissionDocumentDto>> GetAdmissionDocumentsAsync()
