@@ -1,4 +1,5 @@
-﻿using Dtos.DocumentPositionDtos;
+﻿using Dtos.AdmissionDocumentDtos;
+using Dtos.DocumentPositionDtos;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -8,13 +9,15 @@ namespace Frontend.Services.Api;
 
 public interface IDocumentPositionApiService
 {
-    Task<DocumentPositionDto> GetDocumentPositionAsync(int id);
+    public Task<DocumentPositionDto> GetDocumentPositionAsync(int id);
 
-    Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsAsync(int admissionDocumentId);
+    public Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsUnderAdmisionDocumentAsync(int admissionDocumentId);
 
-    Task<int> CreateDocumentPositionAsync(CreateDocumentPositionDto dto);
+    public Task<AdmissionDocumentDto> GetAdmissionDocumentAsync(int id);
 
-    Task UpdateDocumentPositionAsync(int id, UpdateDocumentPositionDto dto);
+    public Task<int> CreateDocumentPositionAsync(CreateDocumentPositionDto dto);
+
+    public Task UpdateDocumentPositionAsync(int id, UpdateDocumentPositionDto dto);
 }
 
 public class DocumentPositionApiService : IDocumentPositionApiService
@@ -26,7 +29,7 @@ public class DocumentPositionApiService : IDocumentPositionApiService
         _httpClient = httpClientFactory.CreateClient("BackendApi");
     }
 
-    public async Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsAsync(int admissionDocumentId)
+    public async Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsUnderAdmisionDocumentAsync(int admissionDocumentId)
     {
         var response = await _httpClient.GetAsync(
             $"api/document-position/under-admission-document/{admissionDocumentId}");
@@ -43,6 +46,15 @@ public class DocumentPositionApiService : IDocumentPositionApiService
         response.EnsureSuccessStatusCode();
 
         return await response.Content.ReadFromJsonAsync<DocumentPositionDto>();
+    }
+
+    public async Task<AdmissionDocumentDto> GetAdmissionDocumentAsync(int id)
+    {
+        var response = await _httpClient.GetAsync($"api/admission-document/{id}");
+
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadFromJsonAsync<AdmissionDocumentDto>();
     }
 
     public async Task<int> CreateDocumentPositionAsync(CreateDocumentPositionDto dto)

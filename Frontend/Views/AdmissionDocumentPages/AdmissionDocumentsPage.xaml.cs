@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Frontend.ViewModels;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace Frontend.Views;
 
@@ -19,5 +20,12 @@ public sealed partial class AdmissionDocumentsPage : Page
         DataContext = _admissionDocumentsViewModel;
 
         InitializeComponent();
+    }
+
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+
+        await _admissionDocumentsViewModel.LoadDataAsync();
     }
 }

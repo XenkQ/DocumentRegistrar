@@ -26,6 +26,6 @@ public sealed partial class ContractorsPage : Page
     {
         base.OnNavigatedTo(e);
 
-        await _contractorsViewModel.LoadContractorsAsync();
+        await _contractorsViewModel.LoadDataAsync();
     }
 }

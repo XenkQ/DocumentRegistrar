@@ -2,6 +2,7 @@
 using Backend.Data;
 using Backend.Entities;
 using Dtos.DocumentPositionDtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
 
@@ -9,7 +10,7 @@ public interface IDocumentPositionService
 {
     public int Create(CreateDocumentPositionDto dto);
 
-    public IEnumerable<DocumentPositionDto> GetAll();
+    public IEnumerable<DocumentPositionDto> GetDocumentPositionsUnderAdmissionDocument(int admissionDocumentId);
 
     public DocumentPositionDto GetById(int id);
 
@@ -41,11 +42,19 @@ public class DocumentPositionService : IDocumentPositionService
         return _mapper.Map<DocumentPositionDto>(DocumentPosition);
     }
 
-    public IEnumerable<DocumentPositionDto> GetAll()
+    public IEnumerable<DocumentPositionDto> GetDocumentPositionsUnderAdmissionDocument(int admissionDocumentId)
     {
-        List<DocumentPosition> DocumentPositions = _dbContext
-            .DocumentPositions
-            .ToList();
+        AdmissionDocument? admissionDocument = _dbContext
+            .AdmissionDocuments
+            .Include(ad => ad.DocumentPositions)
+            .FirstOrDefault(ad => ad.Id == admissionDocumentId);
+
+        if (admissionDocument is null)
+        {
+            return new List<DocumentPositionDto>();
+        }
+
+        List<DocumentPosition> DocumentPositions = admissionDocument.DocumentPositions;
 
         return _mapper.Map<List<DocumentPositionDto>>(DocumentPositions);
     }

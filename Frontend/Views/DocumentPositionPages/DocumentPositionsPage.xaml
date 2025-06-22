@@ -6,7 +6,135 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend.Views.DocumentPositionPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="using:Frontend.ViewModels"
+    x:Name="PositionDocumentsPageRoot"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid Padding="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Padding="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Width="100"
+                Margin="8,8,0,8"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Command="{x:Bind _documentPositionsViewModel.NavigateToAdmissionDocumentsPageCommand}"
+                Content="Cofnij" />
+            <Button
+                Grid.Column="2"
+                Width="100"
+                Margin="0,8,8,8"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{x:Bind _documentPositionsViewModel.NavigateToDocumentPositionDetailsPageCommand}"
+                Content="Dodaj" />
+        </Grid>
+
+        <Grid Grid.Row="1" DataContext="{x:Bind _documentPositionsViewModel.AdmissionDocument}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                FontWeight="Bold"
+                Text="Data" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="{Binding Date}" />
+
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                FontWeight="Bold"
+                Text="Symbol" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="{Binding Symbol}" />
+
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                FontWeight="Bold"
+                Text="Kontrahent" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="{Binding ContractorName}" />
+        </Grid>
+
+        <ListView
+            Grid.Row="2"
+            Margin="8"
+            ItemsSource="{Binding DocumentPositions}">
+            <ListView.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Text="Nazwa" />
+                    <TextBlock
+                        Grid.Column="1"
+                        FontWeight="Bold"
+                        Text="Jednostka" />
+                    <TextBlock
+                        Grid.Column="2"
+                        FontWeight="Bold"
+                        Text="Ilosc" />
+                    <TextBlock Grid.Column="3" Text="" />
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding NameOfProduct}" />
+                        <TextBlock Grid.Column="1" Text="{Binding MeasurementUnit}" />
+                        <TextBlock Grid.Column="2" Text="{Binding Quantity}" />
+
+                        <Button
+                            Grid.Column="3"
+                            Margin="0,0,4,0"
+                            Command="{Binding DataContext.NavigateToDocumentPositionDetailsPageCommand, ElementName=PositionDocumentsPageRoot}"
+                            CommandParameter="{Binding}"
+                            Content="Edytuj" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </Page>

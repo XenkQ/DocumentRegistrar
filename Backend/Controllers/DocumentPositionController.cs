@@ -15,10 +15,10 @@ public class DocumentPositionController : ControllerBase
         _documentPositionService = documentPositionService;
     }
 
-    [HttpGet]
-    public ActionResult<IEnumerable<string>> Get()
+    [HttpGet("under-admission-document/{admissionDocumentId}")]
+    public ActionResult<IEnumerable<string>> GetPositionDocumentsUnderAdmissionDocument(int admissionDocumentId)
     {
-        return Ok(_documentPositionService.GetAll());
+        return Ok(_documentPositionService.GetDocumentPositionsUnderAdmissionDocument(admissionDocumentId));
     }
 
     [HttpGet("{id}")]

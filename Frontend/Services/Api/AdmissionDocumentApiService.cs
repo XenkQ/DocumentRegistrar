@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Dtos.AdmissionDocumentDtos;
+using Dtos.ContractorsDtos;
+using System.Collections.Generic;
 using System.Net.Http;
-using Dtos.AdmissionDocumentDtos;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace Frontend.Services.Api;
 
@@ -11,6 +12,8 @@ public interface IAdmissionDocumentApiService
     public Task<AdmissionDocumentDto> GetAdmissionDocumentAsync(int id);
 
     public Task<IEnumerable<AdmissionDocumentDto>> GetAdmissionDocumentsAsync();
+
+    public Task<IEnumerable<ContractorDto>> GetContractorsAsync();
 
     public Task<int> CreateAdmissionDocumentAsync(CreateAdmissionDocumentDto dto);
 
@@ -42,6 +45,15 @@ public class AdmissionDocumentApiService : IAdmissionDocumentApiService
         response.EnsureSuccessStatusCode();
 
         return await response.Content.ReadFromJsonAsync<AdmissionDocumentDto>();
+    }
+
+    public async Task<IEnumerable<ContractorDto>> GetContractorsAsync()
+    {
+        var response = await _httpClient.GetAsync("api/contractor");
+
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadFromJsonAsync<IEnumerable<ContractorDto>>();
     }
 
     public async Task<int> CreateAdmissionDocumentAsync(CreateAdmissionDocumentDto dto)

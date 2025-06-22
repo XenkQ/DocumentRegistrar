@@ -2,7 +2,10 @@
 using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.ViewModels;
+using Frontend.ViewModels.AdmissionDocumentViewModels;
 using Frontend.ViewModels.ContractorViewModels;
+using Frontend.ViewModels.DocumentPositionViewModel;
+using Frontend.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -47,7 +50,12 @@ public sealed partial class App : Application
             .AddSingleton<IContractorApiService, ContractorApiService>()
             //AdmissionDocument
             .AddSingleton<AdmissionDocumentsViewModel>()
-            .AddSingleton<IAdmissionDocumentApiService, AdmissionDocumentApiService>();
+            .AddTransient<AdmissionDocumentDetailsViewModel>()
+            .AddSingleton<IAdmissionDocumentApiService, AdmissionDocumentApiService>()
+            //DocumentPosition
+            .AddSingleton<DocumentPositionsViewModel>()
+            .AddTransient<DocumentPositionDetailsViewModel>()
+            .AddSingleton<IDocumentPositionApiService, DocumentPositionApiService>();
 
         services.AddHttpClient("BackendApi", client =>
         {
@@ -61,5 +69,6 @@ public sealed partial class App : Application
     {
         MainWindow = Ioc.Default.GetRequiredService<MainWindow>();
         MainWindow?.Activate();
+        MainWindow?.DisplayPage<MainPage>();
     }
 }

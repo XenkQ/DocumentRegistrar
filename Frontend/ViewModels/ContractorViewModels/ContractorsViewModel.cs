@@ -22,7 +22,7 @@ public partial class ContractorsViewModel
         _navigationService = navigationService;
     }
 
-    public async Task LoadContractorsAsync()
+    public async Task LoadDataAsync()
     {
         Contractors.Clear();
 
@@ -41,8 +41,8 @@ public partial class ContractorsViewModel
     }
 
     [RelayCommand]
-    public void NavigateToContractorDetails(ContractorDto contractorDto = null)
+    public void NavigateToContractorDetailsPage(ContractorDto dto = null)
     {
-        _navigationService.NavigateTo<ContractorDetailsPage>(contractorDto);
+        _navigationService.NavigateTo<ContractorDetailsPage>(dto);
     }
 }

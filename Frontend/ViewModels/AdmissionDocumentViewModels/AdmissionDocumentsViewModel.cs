@@ -4,6 +4,7 @@ using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views;
 using Frontend.Views.AdmissionDocumentPages;
+using Frontend.Views.DocumentPositionPages;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ public partial class AdmissionDocumentsViewModel
         _navigationService = navigationService;
     }
 
-    public async Task LoadAdmissionDocumentsAsync()
+    public async Task LoadDataAsync()
     {
         AdmissionDocuments.Clear();
 
@@ -44,8 +45,14 @@ public partial class AdmissionDocumentsViewModel
     }
 
     [RelayCommand]
-    public void NavigateToCreateAdmissionDocument()
+    public void NavigateToAdmissionDocumentDetailsPage(AdmissionDocumentDto dto = null)
     {
-        _navigationService.NavigateTo<AdmissionDocumentDetailsPage>();
+        _navigationService.NavigateTo<AdmissionDocumentDetailsPage>(dto);
+    }
+
+    [RelayCommand]
+    public void NavigateToDocumentPositionsPage(AdmissionDocumentDto dto = null)
+    {
+        _navigationService.NavigateTo<DocumentPositionsPage>(dto);
     }
 }

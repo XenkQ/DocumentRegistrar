@@ -7,6 +7,7 @@
     xmlns:local="using:Frontend.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="using:Frontend.ViewModels"
+    x:Name="AdmissionDocumentsPageRoot"
     mc:Ignorable="d">
 
     <Grid>
@@ -15,7 +16,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Padding="24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -36,7 +37,7 @@
                 Margin="0,8,8,8"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Command="{x:Bind _admissionDocumentsViewModel.NavigateToCreateAdmissionDocumentCommand}"
+                Command="{x:Bind _admissionDocumentsViewModel.NavigateToAdmissionDocumentDetailsPageCommand}"
                 Content="Dodaj" />
         </Grid>
 
@@ -54,16 +55,22 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Column="0"
+                        Padding="8,0"
                         FontWeight="Bold"
-                        Text="Data" />
+                        Text="Data"
+                        TextAlignment="Left" />
                     <TextBlock
                         Grid.Column="1"
+                        Padding="8,0"
                         FontWeight="Bold"
-                        Text="Symbol" />
+                        Text="Symbol"
+                        TextAlignment="Left" />
                     <TextBlock
                         Grid.Column="2"
+                        Padding="8,0"
                         FontWeight="Bold"
-                        Text="Kontrahent" />
+                        Text="Kontrahent"
+                        TextAlignment="Left" />
                     <TextBlock Grid.Column="3" Text="" />
                 </Grid>
             </ListView.Header>
@@ -76,13 +83,32 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Date}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Symbol}" />
-                        <TextBlock Grid.Column="2" Text="{Binding ContractorName}" />
-                        <Button
-                            Grid.Column="3"
-                            Margin="0,0,4,0"
-                            Content="Edytuj" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Padding="8,0"
+                            Text="{Binding Date}"
+                            TextAlignment="Left" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Padding="8,0"
+                            Text="{Binding Symbol}"
+                            TextAlignment="Left" />
+                        <TextBlock
+                            Grid.Column="2"
+                            Padding="8,0"
+                            Text="{Binding ContractorName}"
+                            TextAlignment="Left" />
+                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                            <Button
+                                Margin="0,0,4,0"
+                                Command="{Binding DataContext.NavigateToAdmissionDocumentDetailsPageCommand, ElementName=AdmissionDocumentsPageRoot}"
+                                CommandParameter="{Binding}"
+                                Content="Edytuj" />
+                            <Button
+                                Command="{Binding DataContext.NavigateToDocumentPositionsPageCommand, ElementName=AdmissionDocumentsPageRoot}"
+                                CommandParameter="{Binding}"
+                                Content="Dokumenty Pozycji" />
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

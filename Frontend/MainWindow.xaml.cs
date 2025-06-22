@@ -1,4 +1,3 @@
-using Frontend.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -9,8 +8,6 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-
-        Activated += MainWindow_Activated;
     }
 
     public void DisplayPage<TPage>(object parameter = null)
@@ -24,10 +21,5 @@ public sealed partial class MainWindow : Window
         {
             Body.Navigate(typeof(TPage), parameter);
         }
-    }
-
-    private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
-    {
-        DisplayPage<MainPage>();
     }
 }
