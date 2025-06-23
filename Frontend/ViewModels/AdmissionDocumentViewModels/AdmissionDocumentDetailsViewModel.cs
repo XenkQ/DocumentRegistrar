@@ -9,6 +9,7 @@ using Frontend.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.AdmissionDocumentViewModels;
@@ -38,6 +39,8 @@ public partial class AdmissionDocumentDetailsViewModel : ViewModelBase
 
         Contractors.Clear();
 
+        ContractorDto? selectedContractor = null;
+
         IEnumerable<ContractorDto> contractors =
             await ApiHelper.SafeApiCallAsync(
                 () => _admissionDocumentApiService.GetContractorsAsync(),
@@ -47,10 +50,19 @@ public partial class AdmissionDocumentDetailsViewModel : ViewModelBase
         {
             if (contractor.Id == AdmissionDocument?.ContractorId)
             {
-                SelectedContractor = contractor;
+                selectedContractor = contractor;
             }
 
             Contractors.Add(contractor);
+        }
+
+        if (selectedContractor is null)
+        {
+            SelectedContractor = contractors.First();
+        }
+        else
+        {
+            SelectedContractor = selectedContractor;
         }
 
         IsLoading = false;

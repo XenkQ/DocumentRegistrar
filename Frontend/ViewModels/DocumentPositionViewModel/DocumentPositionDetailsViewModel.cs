@@ -2,9 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using Dtos.AdmissionDocumentDtos;
 using Dtos.DocumentPositionDtos;
+using Frontend.Helpers;
 using Frontend.Services;
 using Frontend.Services.Api;
+using Frontend.Views;
 using Frontend.Views.DocumentPositionPages;
+using System;
 using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.DocumentPositionViewModel;
@@ -60,9 +63,18 @@ public partial class DocumentPositionDetailsViewModel : ViewModelBase
 
     private async Task NavigateToDocumentPositionsUnderRelatedAdmissionDocument()
     {
-        AdmissionDocumentDto relatedAdmissionDocument =
-            await _documentPositionApiService.GetAdmissionDocumentAsync(DocumentPosition.AdmissionDocumentId);
+        AdmissionDocumentDto? relatedAdmissionDocument =
+            await ApiHelper.SafeApiCallAsync(
+                () => _documentPositionApiService.GetAdmissionDocumentAsync(DocumentPosition.AdmissionDocumentId),
+                error =>
+                {
+                    Console.WriteLine(error);
+                    _navigationService.NavigateTo<AdmissionDocumentsPage>();
+                });
 
-        _navigationService.NavigateTo<DocumentPositionsPage>(relatedAdmissionDocument);
+        if (relatedAdmissionDocument is not null)
+        {
+            _navigationService.NavigateTo<DocumentPositionsPage>(relatedAdmissionDocument);
+        }
     }
 }
