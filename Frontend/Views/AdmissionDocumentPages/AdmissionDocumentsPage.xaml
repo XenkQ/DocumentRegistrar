@@ -3,12 +3,19 @@
     x:Class="Frontend.Views.AdmissionDocumentsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Frontend.CustomControls"
+    xmlns:converters="using:Frontend.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="using:Frontend.ViewModels"
     x:Name="AdmissionDocumentsPageRoot"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
 
     <Grid Padding="24">
         <Grid.RowDefinitions>
@@ -30,7 +37,7 @@
                 Margin="0,0,8,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Command="{x:Bind _admissionDocumentsViewModel.NavigateToMainPageCommand}"
+                Command="{Binding NavigateToMainPageCommand}"
                 Content="Cofnij" />
             <Button
                 Grid.Column="2"
@@ -38,7 +45,7 @@
                 Margin="8,0,0,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Command="{x:Bind _admissionDocumentsViewModel.NavigateToAdmissionDocumentDetailsPageCommand}"
+                Command="{Binding NavigateToAdmissionDocumentDetailsPageCommand}"
                 Content="Dodaj" />
         </Grid>
 
@@ -58,89 +65,75 @@
             BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
             BorderThickness="1"
             CornerRadius="4">
-            <ListView
-                Margin="0"
-                HorizontalContentAlignment="Stretch"
-                ItemsSource="{Binding AdmissionDocuments}">
-                <ListView.Header>
-                    <Grid Height="40" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="12,0"
-                            VerticalAlignment="Center"
-                            FontWeight="Bold"
-                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                            Text="Data" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Margin="12,0"
-                            VerticalAlignment="Center"
-                            FontWeight="Bold"
-                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                            Text="Symbol" />
-                        <TextBlock
-                            Grid.Column="2"
-                            Margin="12,0"
-                            VerticalAlignment="Center"
-                            FontWeight="Bold"
-                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                            Text="Kontrahent" />
-                        <TextBlock Grid.Column="3" Text="" />
-                    </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="40" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="200" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Grid.Column="0"
-                                Margin="12,0"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                Text="{Binding Date}" />
-                            <TextBlock
-                                Grid.Column="1"
-                                Margin="12,0"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                Text="{Binding Symbol}" />
-                            <TextBlock
-                                Grid.Column="2"
-                                Margin="12,0"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                Text="{Binding ContractorName}" />
-                            <StackPanel
-                                Grid.Column="3"
-                                Margin="0,0,12,0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                                <Button
-                                    Margin="0,0,4,0"
-                                    Command="{Binding DataContext.NavigateToAdmissionDocumentDetailsPageCommand, ElementName=AdmissionDocumentsPageRoot}"
-                                    CommandParameter="{Binding}"
-                                    Content="Edytuj" />
-                                <Button
-                                    Command="{Binding DataContext.NavigateToDocumentPositionsPageCommand, ElementName=AdmissionDocumentsPageRoot}"
-                                    CommandParameter="{Binding}"
-                                    Content="Dokumenty Pozycji" />
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+
+            <Grid Margin="0">
+                <!--  Admission Documents List View  -->
+                <ListView
+                    Margin="0"
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding AdmissionDocuments}"
+                    Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                    <ListView.Header>
+                        <controls:AdmissionDocumentHeaders />
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="40" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                    Text="{Binding Date}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                    Text="{Binding Symbol}" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                    Text="{Binding ContractorName}" />
+                                <StackPanel
+                                    Grid.Column="3"
+                                    Margin="0,0,12,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <Button
+                                        Margin="0,0,4,0"
+                                        Command="{Binding DataContext.NavigateToAdmissionDocumentDetailsPageCommand, ElementName=AdmissionDocumentsPageRoot}"
+                                        CommandParameter="{Binding}"
+                                        Content="Edytuj" />
+                                    <Button
+                                        Command="{Binding DataContext.NavigateToDocumentPositionsPageCommand, ElementName=AdmissionDocumentsPageRoot}"
+                                        CommandParameter="{Binding}"
+                                        Content="Dokumenty Pozycji" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Grid Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <controls:AdmissionDocumentHeaders Grid.Row="0" />
+                    <controls:LoadingOverlay Grid.Row="1" />
+                </Grid>
+            </Grid>
         </Border>
     </Grid>
 </Page>

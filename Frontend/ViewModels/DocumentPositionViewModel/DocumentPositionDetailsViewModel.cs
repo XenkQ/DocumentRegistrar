@@ -9,20 +9,18 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.DocumentPositionViewModel;
 
-public partial class DocumentPositionDetailsViewModel : ObservableObject
+public partial class DocumentPositionDetailsViewModel : ViewModelBase
 {
     private readonly IDocumentPositionApiService _documentPositionApiService;
-    private readonly INavigationService _navigationService;
 
     [ObservableProperty]
     private DocumentPositionDto _documentPosition = new();
 
     public DocumentPositionDetailsViewModel(
         IDocumentPositionApiService documentPositionApiService,
-        INavigationService navigationService)
+        INavigationService navigationService) : base(navigationService)
     {
         _documentPositionApiService = documentPositionApiService;
-        _navigationService = navigationService;
     }
 
     public bool IsEditMode => DocumentPosition.Id != default;

@@ -8,7 +8,7 @@ namespace Frontend.Views.ContractorPages;
 
 public sealed partial class ContractorDetailsPage : Page
 {
-    private readonly ContractorDetailsViewModel _contractorDetailsViewModel;
+    private readonly ContractorDetailsViewModel _viewModel;
 
     public ContractorDetailsPage() : this(Ioc.Default.GetRequiredService<ContractorDetailsViewModel>())
     {
@@ -16,9 +16,9 @@ public sealed partial class ContractorDetailsPage : Page
 
     public ContractorDetailsPage(ContractorDetailsViewModel contractorsViewModel)
     {
-        _contractorDetailsViewModel = contractorsViewModel;
+        _viewModel = contractorsViewModel;
 
-        DataContext = _contractorDetailsViewModel;
+        DataContext = _viewModel;
 
         InitializeComponent();
     }
@@ -29,7 +29,7 @@ public sealed partial class ContractorDetailsPage : Page
 
         if (e.Parameter is ContractorDto contractorDto)
         {
-            _contractorDetailsViewModel.Contractor = contractorDto;
+            _viewModel.Contractor = contractorDto;
         }
     }
 }

@@ -9,69 +9,73 @@
     xmlns:viewmodel="using:Frontend.ViewModels"
     mc:Ignorable="d">
 
-    <Grid Padding="24" DataContext="{Binding DocumentPosition}">
+    <Grid Padding="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="24" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="24" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="200" />
-        </Grid.ColumnDefinitions>
 
         <Button
             Grid.Row="0"
-            Grid.Column="0"
             Width="100"
-            Command="{x:Bind _documentPositionDetailsViewModel.NavigateToDocumentPositionsPageCommand}"
+            Command="{Binding NavigateToDocumentPositionsPageCommand}"
             Content="Cofnij" />
 
-        <TextBlock
-            Grid.Row="2"
-            Grid.Column="0"
-            Margin="0,0,8,0"
-            VerticalAlignment="Center"
-            Text="Nazwa:" />
-        <TextBox
-            Grid.Row="2"
-            Grid.Column="1"
-            Text="{Binding NameOfProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Grid
+            Grid.Row="1"
+            Margin="0,24,0,24"
+            DataContext="{Binding DocumentPosition}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock
-            Grid.Row="3"
-            Grid.Column="0"
-            Margin="0,8,8,0"
-            VerticalAlignment="Center"
-            Text="Jednostka:" />
-        <TextBox
-            Grid.Row="3"
-            Grid.Column="1"
-            Margin="0,8,0,0"
-            Text="{Binding MeasurementUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Text="Nazwa:" />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="{Binding NameOfProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <TextBlock
-            Grid.Row="4"
-            Grid.Column="0"
-            Margin="0,8,8,0"
-            VerticalAlignment="Center"
-            Text="Ilosc:" />
-        <TextBox
-            Grid.Row="4"
-            Grid.Column="1"
-            Margin="0,8,0,0"
-            Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,8,8,0"
+                VerticalAlignment="Center"
+                Text="Jednostka:" />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,8,0,0"
+                Text="{Binding MeasurementUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="0,8,8,0"
+                VerticalAlignment="Center"
+                Text="Ilosc:" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="0,8,0,0"
+                Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
 
         <Button
-            Grid.Row="6"
-            Grid.Column="0"
+            Grid.Row="2"
             Width="100"
-            HorizontalAlignment="Right"
-            Command="{x:Bind _documentPositionDetailsViewModel.DocumentPositionSaveCommand}"
+            Command="{Binding DocumentPositionSaveCommand}"
             Content="Zapisz" />
     </Grid>
 </Page>

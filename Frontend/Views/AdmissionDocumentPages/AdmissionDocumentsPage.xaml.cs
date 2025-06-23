@@ -7,7 +7,7 @@ namespace Frontend.Views;
 
 public sealed partial class AdmissionDocumentsPage : Page
 {
-    private readonly AdmissionDocumentsViewModel _admissionDocumentsViewModel;
+    private readonly AdmissionDocumentsViewModel _viewModel;
 
     public AdmissionDocumentsPage() : this(Ioc.Default.GetRequiredService<AdmissionDocumentsViewModel>())
     {
@@ -15,9 +15,9 @@ public sealed partial class AdmissionDocumentsPage : Page
 
     public AdmissionDocumentsPage(AdmissionDocumentsViewModel admissionDocumentsViewModel)
     {
-        _admissionDocumentsViewModel = admissionDocumentsViewModel;
+        _viewModel = admissionDocumentsViewModel;
 
-        DataContext = _admissionDocumentsViewModel;
+        DataContext = _viewModel;
 
         InitializeComponent();
     }
@@ -26,6 +26,6 @@ public sealed partial class AdmissionDocumentsPage : Page
     {
         base.OnNavigatedTo(e);
 
-        await _admissionDocumentsViewModel.LoadDataAsync();
+        await _viewModel.LoadDataAsync();
     }
 }

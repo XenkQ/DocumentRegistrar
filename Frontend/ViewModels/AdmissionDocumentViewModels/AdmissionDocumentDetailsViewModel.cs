@@ -12,12 +12,11 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.AdmissionDocumentViewModels;
 
-public partial class AdmissionDocumentDetailsViewModel : ObservableObject
+public partial class AdmissionDocumentDetailsViewModel : ViewModelBase
 {
     public ObservableCollection<ContractorDto> Contractors { get; set; } = new();
 
     private readonly IAdmissionDocumentApiService _admissionDocumentApiService;
-    private readonly INavigationService _navigationService;
 
     [ObservableProperty]
     private AdmissionDocumentDto _admissionDocument = new() { Date = DateOnly.FromDateTime(DateTime.Today) };
@@ -27,14 +26,15 @@ public partial class AdmissionDocumentDetailsViewModel : ObservableObject
 
     public AdmissionDocumentDetailsViewModel(
         IAdmissionDocumentApiService admissionDocumentApiService,
-        INavigationService navigationService)
+        INavigationService navigationService) : base(navigationService)
     {
         _admissionDocumentApiService = admissionDocumentApiService;
-        _navigationService = navigationService;
     }
 
     public async Task LoadDataAsync()
     {
+        IsLoading = true;
+
         Contractors.Clear();
 
         IEnumerable<ContractorDto> contractors = await _admissionDocumentApiService.GetContractorsAsync();
@@ -48,6 +48,8 @@ public partial class AdmissionDocumentDetailsViewModel : ObservableObject
 
             Contractors.Add(contractor);
         }
+
+        IsLoading = false;
     }
 
     public bool IsEditMode => AdmissionDocument.Id != default;

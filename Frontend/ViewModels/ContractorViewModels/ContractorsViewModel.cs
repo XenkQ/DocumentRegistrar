@@ -10,20 +10,22 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels;
 
-public partial class ContractorsViewModel
+public partial class ContractorsViewModel : ViewModelBase
 {
     public ObservableCollection<ContractorDto> Contractors { get; private set; } = new();
     private readonly IContractorApiService _contractorApiService;
-    private readonly INavigationService _navigationService;
 
-    public ContractorsViewModel(IContractorApiService contractorApiService, INavigationService navigationService)
+    public ContractorsViewModel(
+        IContractorApiService contractorApiService,
+        INavigationService navigationService) : base(navigationService)
     {
         _contractorApiService = contractorApiService;
-        _navigationService = navigationService;
     }
 
     public async Task LoadDataAsync()
     {
+        IsLoading = true;
+
         Contractors.Clear();
 
         IEnumerable<ContractorDto> contractors = await _contractorApiService.GetContractorsAsync();
@@ -32,6 +34,8 @@ public partial class ContractorsViewModel
         {
             Contractors.Add(contractor);
         }
+
+        IsLoading = false;
     }
 
     [RelayCommand]

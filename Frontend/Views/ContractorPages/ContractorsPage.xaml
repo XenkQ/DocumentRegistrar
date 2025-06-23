@@ -3,12 +3,19 @@
     x:Class="Frontend.Views.ContractorsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Frontend.CustomControls"
+    xmlns:converters="using:Frontend.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="using:Frontend.ViewModels"
     x:Name="ContractorsPageRoot"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
 
     <Grid Padding="24">
         <Grid.RowDefinitions>
@@ -31,7 +38,7 @@
                 Margin="0,0,8,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Command="{x:Bind _contractorsViewModel.NavigateToMainPageCommand}"
+                Command="{Binding NavigateToMainPageCommand}"
                 Content="Cofnij" />
             <Button
                 Grid.Column="2"
@@ -39,7 +46,7 @@
                 Margin="8,0,0,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Command="{x:Bind _contractorsViewModel.NavigateToContractorDetailsPageCommand}"
+                Command="{Binding NavigateToContractorDetailsPageCommand}"
                 Content="Dodaj" />
         </Grid>
 
@@ -59,69 +66,60 @@
             BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
             BorderThickness="1"
             CornerRadius="4">
-            <ListView
-                Margin="0"
-                HorizontalContentAlignment="Stretch"
-                ItemsSource="{Binding Contractors}">
-                <ListView.Header>
-                    <Grid Height="40" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="12,0"
-                            VerticalAlignment="Center"
-                            FontWeight="Bold"
-                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                            Text="Nazwa" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Margin="12,0"
-                            VerticalAlignment="Center"
-                            FontWeight="Bold"
-                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                            Text="Symbol" />
-                        <TextBlock Grid.Column="2" Text="" />
-                    </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="40" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Grid.Column="0"
-                                Margin="12,0"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                Text="{Binding Name}" />
-                            <TextBlock
-                                Grid.Column="1"
-                                Margin="12,0"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                Text="{Binding Symbol}" />
-                            <StackPanel
-                                Grid.Column="2"
-                                Margin="0,0,12,0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                                <Button
-                                    Command="{Binding DataContext.NavigateToContractorDetailsPageCommand, ElementName=ContractorsPageRoot}"
-                                    CommandParameter="{Binding}"
-                                    Content="Edytuj" />
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid>
+                <ListView
+                    Margin="0"
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding Contractors}">
+                    <ListView.Header>
+                        <controls:ContractorHeaders />
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="40" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                    Text="{Binding Name}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                    Text="{Binding Symbol}" />
+                                <StackPanel
+                                    Grid.Column="2"
+                                    Margin="0,0,12,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <Button
+                                        Command="{Binding DataContext.NavigateToContractorDetailsPageCommand, ElementName=ContractorsPageRoot}"
+                                        CommandParameter="{Binding}"
+                                        Content="Edytuj" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Grid Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <controls:ContractorHeaders Grid.Row="0" />
+                    <controls:LoadingOverlay Grid.Row="1" />
+                </Grid>
+            </Grid>
         </Border>
     </Grid>
 </Page>

@@ -11,22 +11,22 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels;
 
-public partial class AdmissionDocumentsViewModel
+public partial class AdmissionDocumentsViewModel : ViewModelBase
 {
     public ObservableCollection<AdmissionDocumentDto> AdmissionDocuments { get; private set; } = new();
     private readonly IAdmissionDocumentApiService _admissionDocumentApiService;
-    private readonly INavigationService _navigationService;
 
     public AdmissionDocumentsViewModel(
         IAdmissionDocumentApiService admissionDocumentApiService,
-        INavigationService navigationService)
+        INavigationService navigationService) : base(navigationService)
     {
         _admissionDocumentApiService = admissionDocumentApiService;
-        _navigationService = navigationService;
     }
 
     public async Task LoadDataAsync()
     {
+        IsLoading = true;
+
         AdmissionDocuments.Clear();
 
         IEnumerable<AdmissionDocumentDto> admissionDocuments =
@@ -36,6 +36,8 @@ public partial class AdmissionDocumentsViewModel
         {
             AdmissionDocuments.Add(admissionDocument);
         }
+
+        IsLoading = false;
     }
 
     [RelayCommand]

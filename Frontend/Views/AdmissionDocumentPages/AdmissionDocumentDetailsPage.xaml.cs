@@ -3,13 +3,12 @@ using Dtos.AdmissionDocumentDtos;
 using Frontend.ViewModels.AdmissionDocumentViewModels;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using System;
 
 namespace Frontend.Views.AdmissionDocumentPages;
 
 public sealed partial class AdmissionDocumentDetailsPage : Page
 {
-    private readonly AdmissionDocumentDetailsViewModel _admissionDocumentDetailsViewModel;
+    private readonly AdmissionDocumentDetailsViewModel _viewModel;
 
     public AdmissionDocumentDetailsPage() : this(Ioc.Default.GetRequiredService<AdmissionDocumentDetailsViewModel>())
     {
@@ -17,9 +16,9 @@ public sealed partial class AdmissionDocumentDetailsPage : Page
 
     public AdmissionDocumentDetailsPage(AdmissionDocumentDetailsViewModel admissionDocumentDetailsViewModel)
     {
-        _admissionDocumentDetailsViewModel = admissionDocumentDetailsViewModel;
+        _viewModel = admissionDocumentDetailsViewModel;
 
-        DataContext = _admissionDocumentDetailsViewModel;
+        DataContext = _viewModel;
 
         InitializeComponent();
     }
@@ -30,9 +29,9 @@ public sealed partial class AdmissionDocumentDetailsPage : Page
 
         if (e.Parameter is AdmissionDocumentDto admissionDocument)
         {
-            _admissionDocumentDetailsViewModel.AdmissionDocument = admissionDocument;
+            _viewModel.AdmissionDocument = admissionDocument;
         }
 
-        await _admissionDocumentDetailsViewModel.LoadDataAsync();
+        await _viewModel.LoadDataAsync();
     }
 }

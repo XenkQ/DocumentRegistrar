@@ -8,7 +8,7 @@ namespace Frontend.Views.DocumentPositionPages;
 
 public sealed partial class DocumentPositionDetailsPage : Page
 {
-    private readonly DocumentPositionDetailsViewModel _documentPositionDetailsViewModel;
+    private readonly DocumentPositionDetailsViewModel _viewModel;
 
     public DocumentPositionDetailsPage() : this(Ioc.Default.GetRequiredService<DocumentPositionDetailsViewModel>())
     {
@@ -16,9 +16,9 @@ public sealed partial class DocumentPositionDetailsPage : Page
 
     public DocumentPositionDetailsPage(DocumentPositionDetailsViewModel documentPositionDetailsViewModel)
     {
-        _documentPositionDetailsViewModel = documentPositionDetailsViewModel;
+        _viewModel = documentPositionDetailsViewModel;
 
-        DataContext = _documentPositionDetailsViewModel;
+        DataContext = _viewModel;
 
         InitializeComponent();
     }
@@ -29,7 +29,7 @@ public sealed partial class DocumentPositionDetailsPage : Page
 
         if (e.Parameter is DocumentPositionDto documentPositionDto)
         {
-            _documentPositionDetailsViewModel.DocumentPosition = documentPositionDto;
+            _viewModel.DocumentPosition = documentPositionDto;
         }
     }
 }

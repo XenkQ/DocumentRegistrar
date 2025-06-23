@@ -7,7 +7,7 @@ namespace Frontend.Views;
 
 public sealed partial class ContractorsPage : Page
 {
-    private readonly ContractorsViewModel _contractorsViewModel;
+    private readonly ContractorsViewModel _viewModel;
 
     public ContractorsPage() : this(Ioc.Default.GetRequiredService<ContractorsViewModel>())
     {
@@ -15,9 +15,9 @@ public sealed partial class ContractorsPage : Page
 
     public ContractorsPage(ContractorsViewModel contractorsViewModel)
     {
-        _contractorsViewModel = contractorsViewModel;
+        _viewModel = contractorsViewModel;
 
-        DataContext = _contractorsViewModel;
+        DataContext = _viewModel;
 
         InitializeComponent();
     }
@@ -26,6 +26,6 @@ public sealed partial class ContractorsPage : Page
     {
         base.OnNavigatedTo(e);
 
-        await _contractorsViewModel.LoadDataAsync();
+        await _viewModel.LoadDataAsync();
     }
 }

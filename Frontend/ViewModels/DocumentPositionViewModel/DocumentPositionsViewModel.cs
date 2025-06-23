@@ -12,26 +12,26 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels;
 
-public partial class DocumentPositionsViewModel : ObservableObject
+public partial class DocumentPositionsViewModel : ViewModelBase
 {
     public ObservableCollection<DocumentPositionDto> DocumentPositions { get; private set; } = new();
 
     private readonly IDocumentPositionApiService _documentPositionApiService;
-    private readonly INavigationService _navigationService;
 
     [ObservableProperty]
     private AdmissionDocumentDto _admissionDocument;
 
     public DocumentPositionsViewModel(
         IDocumentPositionApiService documentPositionApiService,
-        INavigationService navigationService)
+        INavigationService navigationService) : base(navigationService)
     {
         _documentPositionApiService = documentPositionApiService;
-        _navigationService = navigationService;
     }
 
     public async Task LoadDataAsync(int admissionDocumentId)
     {
+        IsLoading = true;
+
         DocumentPositions.Clear();
 
         IEnumerable<DocumentPositionDto> documentPositions =
@@ -41,6 +41,8 @@ public partial class DocumentPositionsViewModel : ObservableObject
         {
             DocumentPositions.Add(documentPosition);
         }
+
+        IsLoading = false;
     }
 
     [RelayCommand]

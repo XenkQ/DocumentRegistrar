@@ -8,56 +8,65 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Padding="24" DataContext="{Binding Contractor}">
+    <Grid Padding="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="24" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="24" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="200" />
-        </Grid.ColumnDefinitions>
 
         <Button
             Grid.Row="0"
             Grid.Column="0"
             Width="100"
-            Command="{x:Bind _contractorDetailsViewModel.NavigateToContractorsPageCommand}"
+            Command="{Binding NavigateToContractorsPageCommand}"
             Content="Cofnij" />
 
-        <TextBlock
-            Grid.Row="2"
+        <Grid
+            Grid.Row="1"
             Grid.Column="0"
-            Margin="0,0,8,0"
-            VerticalAlignment="Center"
-            Text="Nazwa:" />
-        <TextBox
-            x:Name="NazwaTextBox"
-            Grid.Row="2"
-            Grid.Column="1"
-            Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock
-            Grid.Row="3"
-            Grid.Column="0"
-            Margin="0,8,8,0"
-            VerticalAlignment="Center"
-            Text="Symbol:" />
-        <TextBox
-            x:Name="SymbolTextBox"
-            Grid.Row="3"
-            Grid.Column="1"
-            Margin="0,8,0,0"
-            Text="{Binding Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            Margin="0,24,0,24"
+            DataContext="{Binding Contractor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Text="Nazwa:" />
+            <TextBox
+                x:Name="NazwaTextBox"
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,8,8,0"
+                VerticalAlignment="Center"
+                Text="Symbol:" />
+            <TextBox
+                x:Name="SymbolTextBox"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,8,0,0"
+                Text="{Binding Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+
         <Button
-            Grid.Row="5"
+            Grid.Row="2"
             Grid.Column="0"
             Width="100"
-            HorizontalAlignment="Right"
-            Command="{x:Bind _contractorDetailsViewModel.ContractorSaveCommand}"
+            Command="{Binding ContractorSaveCommand}"
             Content="Zapisz" />
     </Grid>
 </Page>

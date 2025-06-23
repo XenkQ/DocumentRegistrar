@@ -8,7 +8,7 @@ namespace Frontend.Views.DocumentPositionPages;
 
 public sealed partial class DocumentPositionsPage : Page
 {
-    private readonly DocumentPositionsViewModel _documentPositionsViewModel;
+    private readonly DocumentPositionsViewModel _viewModel;
 
     public DocumentPositionsPage() : this(Ioc.Default.GetRequiredService<DocumentPositionsViewModel>())
     {
@@ -16,9 +16,9 @@ public sealed partial class DocumentPositionsPage : Page
 
     public DocumentPositionsPage(DocumentPositionsViewModel documentPositionsViewModel)
     {
-        _documentPositionsViewModel = documentPositionsViewModel;
+        _viewModel = documentPositionsViewModel;
 
-        DataContext = _documentPositionsViewModel;
+        DataContext = _viewModel;
 
         InitializeComponent();
     }
@@ -29,8 +29,8 @@ public sealed partial class DocumentPositionsPage : Page
 
         if (e.Parameter is AdmissionDocumentDto admissionDocument)
         {
-            _documentPositionsViewModel.AdmissionDocument = admissionDocument;
-            await _documentPositionsViewModel.LoadDataAsync(admissionDocument.Id);
+            _viewModel.AdmissionDocument = admissionDocument;
+            await _viewModel.LoadDataAsync(admissionDocument.Id);
         }
     }
 }

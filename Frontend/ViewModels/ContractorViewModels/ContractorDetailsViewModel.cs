@@ -8,20 +8,18 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.ContractorViewModels;
 
-public partial class ContractorDetailsViewModel : ObservableObject
+public partial class ContractorDetailsViewModel : ViewModelBase
 {
     private readonly IContractorApiService _contractorApiService;
-    private readonly INavigationService _navigationService;
 
     [ObservableProperty]
     private ContractorDto _contractor = new();
 
     public ContractorDetailsViewModel(
         IContractorApiService contractorApiService,
-        INavigationService navigationService)
+        INavigationService navigationService) : base(navigationService)
     {
         _contractorApiService = contractorApiService;
-        _navigationService = navigationService;
     }
 
     public bool IsEditMode => Contractor.Id != default;

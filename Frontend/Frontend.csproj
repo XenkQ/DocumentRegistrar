@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="CustomControls\AdmissionDocumentHeaders.xaml" />
+    <None Remove="CustomControls\ContractorHeaders.xaml" />
+    <None Remove="CustomControls\LoadingOverlay.xaml" />
     <None Remove="Views\AdmissionDocumentsPage.xaml" />
     <None Remove="Views\ContractorsPage.xaml" />
     <None Remove="Views\DocumentPositionPages\DocumentPositionsPage.xaml" />
@@ -98,6 +101,21 @@
     <PRIResource Remove="Views\AdmissionDocument\**" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="CustomControls\DocumentPositionHeaders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="CustomControls\ContractorHeaders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="CustomControls\AdmissionDocumentHeaders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\DocumentPositionPages\DocumentPositionsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,6 +132,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\AdmissionDocumentPages\AdmissionDocumentDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="CustomControls\LoadingOverlay.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
