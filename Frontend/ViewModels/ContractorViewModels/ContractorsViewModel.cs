@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Dtos.ContractorsDtos;
+using Frontend.Helpers;
 using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views;
 using Frontend.Views.ContractorPages;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -28,7 +30,10 @@ public partial class ContractorsViewModel : ViewModelBase
 
         Contractors.Clear();
 
-        IEnumerable<ContractorDto> contractors = await _contractorApiService.GetContractorsAsync();
+        IEnumerable<ContractorDto> contractors =
+            await ApiHelper.SafeApiCallAsync(
+                () => _contractorApiService.GetContractorsAsync(),
+                error => Console.WriteLine(error)) ?? new List<ContractorDto>();
 
         foreach (var contractor in contractors)
         {

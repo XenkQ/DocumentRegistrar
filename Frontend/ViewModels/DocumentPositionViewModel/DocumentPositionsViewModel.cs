@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Dtos.AdmissionDocumentDtos;
 using Dtos.DocumentPositionDtos;
+using Frontend.Helpers;
 using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views;
@@ -35,7 +36,9 @@ public partial class DocumentPositionsViewModel : ViewModelBase
         DocumentPositions.Clear();
 
         IEnumerable<DocumentPositionDto> documentPositions =
-            await _documentPositionApiService.GetDocumentPositionsUnderAdmisionDocumentAsync(admissionDocumentId);
+            await ApiHelper.SafeApiCallAsync(
+                () => _documentPositionApiService.GetDocumentPositionsUnderAdmisionDocumentAsync(admissionDocumentId),
+                error => System.Console.WriteLine(error)) ?? new List<DocumentPositionDto>();
 
         foreach (var documentPosition in documentPositions)
         {

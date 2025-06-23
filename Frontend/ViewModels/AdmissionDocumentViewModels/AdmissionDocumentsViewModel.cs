@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Dtos.AdmissionDocumentDtos;
+using Frontend.Helpers;
 using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views;
@@ -30,7 +31,9 @@ public partial class AdmissionDocumentsViewModel : ViewModelBase
         AdmissionDocuments.Clear();
 
         IEnumerable<AdmissionDocumentDto> admissionDocuments =
-            await _admissionDocumentApiService.GetAdmissionDocumentsAsync();
+            await ApiHelper.SafeApiCallAsync(
+                () => _admissionDocumentApiService.GetAdmissionDocumentsAsync(),
+                error => System.Console.WriteLine(error)) ?? new List<AdmissionDocumentDto>();
 
         foreach (var admissionDocument in admissionDocuments)
         {

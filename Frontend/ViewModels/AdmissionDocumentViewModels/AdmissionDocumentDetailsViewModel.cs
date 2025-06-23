@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Dtos.AdmissionDocumentDtos;
 using Dtos.ContractorsDtos;
+using Frontend.Helpers;
 using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views;
@@ -37,7 +38,10 @@ public partial class AdmissionDocumentDetailsViewModel : ViewModelBase
 
         Contractors.Clear();
 
-        IEnumerable<ContractorDto> contractors = await _admissionDocumentApiService.GetContractorsAsync();
+        IEnumerable<ContractorDto> contractors =
+            await ApiHelper.SafeApiCallAsync(
+                () => _admissionDocumentApiService.GetContractorsAsync(),
+                error => Console.WriteLine(error)) ?? new List<ContractorDto>();
 
         foreach (var contractor in contractors)
         {
