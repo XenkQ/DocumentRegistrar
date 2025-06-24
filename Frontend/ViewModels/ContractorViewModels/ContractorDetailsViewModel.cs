@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Dtos.ContractorsDtos;
+using Frontend.Helpers;
 using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.ContractorViewModels;
 
-public partial class ContractorDetailsViewModel : ViewModelBase
+public partial class ContractorDetailsViewModel : ObjectValidationalViewModel
 {
     private readonly IContractorApiService _contractorApiService;
 
@@ -17,7 +18,8 @@ public partial class ContractorDetailsViewModel : ViewModelBase
 
     public ContractorDetailsViewModel(
         IContractorApiService contractorApiService,
-        INavigationService navigationService) : base(navigationService)
+        IDialogService dialogService,
+        INavigationService navigationService) : base(dialogService, navigationService)
     {
         _contractorApiService = contractorApiService;
     }
@@ -33,23 +35,46 @@ public partial class ContractorDetailsViewModel : ViewModelBase
     [RelayCommand]
     public async Task OnContractorSave()
     {
+        bool canProceedWithObject = false;
+
         if (IsEditMode)
         {
-            await _contractorApiService.UpdateContractorAsync(Contractor.Id, new UpdateContractorDto()
+            var updateContractor = new UpdateContractorDto()
             {
                 Name = Contractor.Name,
                 Symbol = Contractor.Symbol
-            });
+            };
+
+            canProceedWithObject = ValidationHelper.ValidateObject(
+                updateContractor,
+                ShowValidationErrorsDialogBox);
+
+            if (canProceedWithObject)
+            {
+                await _contractorApiService.UpdateContractorAsync(Contractor.Id, updateContractor);
+            }
         }
         else
         {
-            await _contractorApiService.CreateContractorAsync(new CreateContractorDto()
+            var createContractor = new CreateContractorDto()
             {
                 Name = Contractor.Name,
                 Symbol = Contractor.Symbol
-            });
+            };
+
+            canProceedWithObject = ValidationHelper.ValidateObject(
+                createContractor,
+                ShowValidationErrorsDialogBox);
+
+            if (canProceedWithObject)
+            {
+                await _contractorApiService.CreateContractorAsync(createContractor);
+            }
         }
 
-        _navigationService.NavigateTo<ContractorsPage>();
+        if (canProceedWithObject)
+        {
+            _navigationService.NavigateTo<ContractorsPage>();
+        }
     }
 }

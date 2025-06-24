@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.DocumentPositionViewModel;
 
-public partial class DocumentPositionDetailsViewModel : ViewModelBase
+public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewModel
 {
     private readonly IDocumentPositionApiService _documentPositionApiService;
 
@@ -21,7 +21,8 @@ public partial class DocumentPositionDetailsViewModel : ViewModelBase
 
     public DocumentPositionDetailsViewModel(
         IDocumentPositionApiService documentPositionApiService,
-        INavigationService navigationService) : base(navigationService)
+        IDialogService dialogService,
+        INavigationService navigationService) : base(dialogService, navigationService)
     {
         _documentPositionApiService = documentPositionApiService;
     }
@@ -37,28 +38,51 @@ public partial class DocumentPositionDetailsViewModel : ViewModelBase
     [RelayCommand]
     public async Task OnDocumentPositionSave()
     {
+        bool canProceedWithObject = false;
+
         if (IsEditMode)
         {
-            await _documentPositionApiService.UpdateDocumentPositionAsync(DocumentPosition.Id, new UpdateDocumentPositionDto()
+            var updateDocumentPosition = new UpdateDocumentPositionDto()
             {
                 NameOfProduct = DocumentPosition.NameOfProduct,
                 MeasurementUnit = DocumentPosition.MeasurementUnit,
                 Quantity = DocumentPosition.Quantity,
                 AdmissionDocumentId = DocumentPosition.AdmissionDocumentId
-            });
+            };
+
+            canProceedWithObject = ValidationHelper.ValidateObject(
+                updateDocumentPosition,
+                ShowValidationErrorsDialogBox);
+
+            if (canProceedWithObject)
+            {
+                await _documentPositionApiService.UpdateDocumentPositionAsync(DocumentPosition.Id, updateDocumentPosition);
+            }
         }
         else
         {
-            await _documentPositionApiService.CreateDocumentPositionAsync(new CreateDocumentPositionDto()
+            var createDocumentPosition = new CreateDocumentPositionDto()
             {
                 NameOfProduct = DocumentPosition.NameOfProduct,
                 MeasurementUnit = DocumentPosition.MeasurementUnit,
                 Quantity = DocumentPosition.Quantity,
                 AdmissionDocumentId = DocumentPosition.AdmissionDocumentId
-            });
+            };
+
+            canProceedWithObject = ValidationHelper.ValidateObject(
+                createDocumentPosition,
+                ShowValidationErrorsDialogBox);
+
+            if (canProceedWithObject)
+            {
+                await _documentPositionApiService.CreateDocumentPositionAsync(createDocumentPosition);
+            }
         }
 
-        await NavigateToDocumentPositionsUnderRelatedAdmissionDocument();
+        if (canProceedWithObject)
+        {
+            await NavigateToDocumentPositionsUnderRelatedAdmissionDocument();
+        }
     }
 
     private async Task NavigateToDocumentPositionsUnderRelatedAdmissionDocument()

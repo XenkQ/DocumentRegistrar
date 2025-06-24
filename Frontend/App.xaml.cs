@@ -17,7 +17,7 @@ public sealed partial class App : Application
 {
     public new static App Current => (App)Application.Current;
 
-    public static MainWindow? MainWindow { get; private set; }
+    public MainWindow? MainWindow { get; private set; }
 
     public static IConfigurationRoot AppConfiguration { get; private set; }
 
@@ -43,6 +43,7 @@ public sealed partial class App : Application
         IServiceCollection services = new ServiceCollection()
             .AddSingleton<MainWindow>()
             .AddSingleton<INavigationService, NavigationService>()
+            .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<MainViewModel>()
             //Contractor
             .AddSingleton<ContractorsViewModel>()

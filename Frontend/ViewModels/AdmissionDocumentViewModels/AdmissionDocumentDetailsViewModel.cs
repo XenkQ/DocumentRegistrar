@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.AdmissionDocumentViewModels;
 
-public partial class AdmissionDocumentDetailsViewModel : ViewModelBase
+public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewModel
 {
     public ObservableCollection<ContractorDto> Contractors { get; set; } = new();
 
@@ -28,7 +28,8 @@ public partial class AdmissionDocumentDetailsViewModel : ViewModelBase
 
     public AdmissionDocumentDetailsViewModel(
         IAdmissionDocumentApiService admissionDocumentApiService,
-        INavigationService navigationService) : base(navigationService)
+        IDialogService dialogService,
+        INavigationService navigationService) : base(dialogService, navigationService)
     {
         _admissionDocumentApiService = admissionDocumentApiService;
     }
@@ -58,7 +59,7 @@ public partial class AdmissionDocumentDetailsViewModel : ViewModelBase
 
         if (selectedContractor is null)
         {
-            SelectedContractor = contractors.First();
+            SelectedContractor = Contractors.First();
         }
         else
         {
@@ -79,25 +80,48 @@ public partial class AdmissionDocumentDetailsViewModel : ViewModelBase
     [RelayCommand]
     public async void OnAdmissionDocumentSave()
     {
+        bool canProceedWithObject = false;
+
         if (IsEditMode)
         {
-            await _admissionDocumentApiService.UpdateAdmissionDocumentAsync(AdmissionDocument.Id, new UpdateAdmissionDocumentDto()
+            var updateAdmissionDocument = new UpdateAdmissionDocumentDto()
             {
                 Date = AdmissionDocument.Date,
-                Symbol = AdmissionDocument.Symbol,
-                ContractorId = SelectedContractor?.Id ?? AdmissionDocument.ContractorId
-            });
+                Symbol = AdmissionDocument.Symbol
+            };
+
+            canProceedWithObject = ValidationHelper.ValidateObject(
+                updateAdmissionDocument,
+                ShowValidationErrorsDialogBox);
+
+            if (canProceedWithObject)
+            {
+                await _admissionDocumentApiService.UpdateAdmissionDocumentAsync(
+                    AdmissionDocument.Id, updateAdmissionDocument
+                );
+            }
         }
         else
         {
-            await _admissionDocumentApiService.CreateAdmissionDocumentAsync(new CreateAdmissionDocumentDto()
+            var createAdmissionDocument = new CreateAdmissionDocumentDto()
             {
                 Date = AdmissionDocument.Date,
                 Symbol = AdmissionDocument.Symbol,
-                ContractorId = SelectedContractor?.Id ?? AdmissionDocument.ContractorId
-            });
+            };
+
+            canProceedWithObject = ValidationHelper.ValidateObject(
+                createAdmissionDocument,
+                ShowValidationErrorsDialogBox);
+
+            if (canProceedWithObject)
+            {
+                await _admissionDocumentApiService.CreateAdmissionDocumentAsync(createAdmissionDocument);
+            }
         }
 
-        _navigationService.NavigateTo<AdmissionDocumentsPage>();
+        if (canProceedWithObject)
+        {
+            _navigationService.NavigateTo<AdmissionDocumentsPage>();
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -12,9 +13,17 @@ public static class ApiHelper
         {
             return await apiCall();
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException ex) when (ex.StatusCode is HttpStatusCode statusCode)
         {
-            onError?.Invoke("Unable to connect to the server. Please check your internet connection.");
+            string message = statusCode switch
+            {
+                HttpStatusCode.BadRequest => "Bad request. Please check your input.",
+                HttpStatusCode.NotFound => "The requested resource was not found.",
+                HttpStatusCode.InternalServerError => "A server error occurred. Please try again later.",
+                _ => $"Request failed with status code {(int)statusCode}."
+            };
+
+            onError?.Invoke(message);
         }
         catch (TaskCanceledException)
         {

@@ -10,6 +10,8 @@ public sealed partial class MainWindow : Window
         InitializeComponent();
     }
 
+    public Page? DisplayedPage => Body.Content as Page;
+
     public void DisplayPage<TPage>(object parameter = null)
         where TPage : Page
     {
