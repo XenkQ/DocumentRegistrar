@@ -90,7 +90,8 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
             var updateAdmissionDocument = new UpdateAdmissionDocumentDto()
             {
                 Date = AdmissionDocument.Date,
-                Symbol = AdmissionDocument.Symbol
+                Symbol = AdmissionDocument.Symbol,
+                ContractorId = SelectedContractor?.Id ?? AdmissionDocument.ContractorId
             };
 
             canProceedWithObject = ValidationHelper.ValidateObject(
@@ -110,6 +111,7 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
             {
                 Date = AdmissionDocument.Date,
                 Symbol = AdmissionDocument.Symbol,
+                ContractorId = SelectedContractor?.Id ?? AdmissionDocument.ContractorId
             };
 
             canProceedWithObject = ValidationHelper.ValidateObject(
