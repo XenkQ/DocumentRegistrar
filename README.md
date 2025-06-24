@@ -71,3 +71,11 @@ This is a modern Windows desktop application built with **WinUI 3** and **.NET 9
 
 6. **Build and run**  
    Press `F5` to build and launch the application.
+
+## Screenshots
+![EkranGłówny](https://github.com/user-attachments/assets/61d78a83-17cd-445e-9135-f8a63840a004)
+![DokumentyPrzyjęć](https://github.com/user-attachments/assets/41e8764b-6db1-4d06-af0c-429bb37b83ab)
+![DokumentPrzyjęcia](https://github.com/user-attachments/assets/47dbcf56-698a-41a7-9b37-070708b8b659)
+![PozycjeDokumentu](https://github.com/user-attachments/assets/e72e3021-b705-4d7c-8346-e432f56535a6)
+![kontrahenci](https://github.com/user-attachments/assets/c8cdcff3-05c4-4046-a45c-be8514ba4742)
+
