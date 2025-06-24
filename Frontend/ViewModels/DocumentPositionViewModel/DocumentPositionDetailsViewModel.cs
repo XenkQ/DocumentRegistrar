@@ -15,6 +15,7 @@ namespace Frontend.ViewModels.DocumentPositionViewModel;
 public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewModel
 {
     private readonly IDocumentPositionApiService _documentPositionApiService;
+    private readonly IDialogService _dialogService;
 
     [ObservableProperty]
     private DocumentPositionDto _documentPosition = new();
@@ -25,6 +26,7 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
         INavigationService navigationService) : base(dialogService, navigationService)
     {
         _documentPositionApiService = documentPositionApiService;
+        _dialogService = dialogService;
     }
 
     public bool IsEditMode => DocumentPosition.Id != default;
@@ -92,7 +94,7 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
                 () => _documentPositionApiService.GetAdmissionDocumentAsync(DocumentPosition.AdmissionDocumentId),
                 error =>
                 {
-                    Console.WriteLine(error);
+                    _dialogService.ShowMessageAsync("Can't retrive data from server", error);
                     _navigationService.NavigateTo<AdmissionDocumentsPage>();
                 });
 

@@ -15,13 +15,17 @@ namespace Frontend.ViewModels;
 public partial class AdmissionDocumentsViewModel : ViewModelBase
 {
     public ObservableCollection<AdmissionDocumentDto> AdmissionDocuments { get; private set; } = new();
+
     private readonly IAdmissionDocumentApiService _admissionDocumentApiService;
+    private readonly IDialogService _dialogService;
 
     public AdmissionDocumentsViewModel(
         IAdmissionDocumentApiService admissionDocumentApiService,
+        IDialogService dialogService,
         INavigationService navigationService) : base(navigationService)
     {
         _admissionDocumentApiService = admissionDocumentApiService;
+        _dialogService = dialogService;
     }
 
     public async Task LoadDataAsync()
@@ -33,7 +37,8 @@ public partial class AdmissionDocumentsViewModel : ViewModelBase
         IEnumerable<AdmissionDocumentDto> admissionDocuments =
             await ApiHelper.SafeApiCallAsync(
                 () => _admissionDocumentApiService.GetAdmissionDocumentsAsync(),
-                error => System.Console.WriteLine(error)) ?? new List<AdmissionDocumentDto>();
+                error => _dialogService.ShowMessageAsync("Can't retrive data from server", error))
+            ?? new List<AdmissionDocumentDto>();
 
         foreach (var admissionDocument in admissionDocuments)
         {

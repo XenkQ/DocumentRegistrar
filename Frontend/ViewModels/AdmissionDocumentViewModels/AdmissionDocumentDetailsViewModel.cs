@@ -19,12 +19,13 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
     public ObservableCollection<ContractorDto> Contractors { get; set; } = new();
 
     private readonly IAdmissionDocumentApiService _admissionDocumentApiService;
+    private readonly IDialogService _dialogService;
 
     [ObservableProperty]
     private AdmissionDocumentDto _admissionDocument = new() { Date = DateOnly.FromDateTime(DateTime.Today) };
 
     [ObservableProperty]
-    private ContractorDto _selectedContractor;
+    private ContractorDto? _selectedContractor;
 
     public AdmissionDocumentDetailsViewModel(
         IAdmissionDocumentApiService admissionDocumentApiService,
@@ -32,6 +33,7 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
         INavigationService navigationService) : base(dialogService, navigationService)
     {
         _admissionDocumentApiService = admissionDocumentApiService;
+        _dialogService = dialogService;
     }
 
     public async Task LoadDataAsync()
@@ -45,7 +47,8 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
         IEnumerable<ContractorDto> contractors =
             await ApiHelper.SafeApiCallAsync(
                 () => _admissionDocumentApiService.GetContractorsAsync(),
-                error => Console.WriteLine(error)) ?? new List<ContractorDto>();
+                error => _dialogService.ShowMessageAsync("Can't retrive data from server", error))
+            ?? new List<ContractorDto>();
 
         foreach (var contractor in contractors)
         {
@@ -59,7 +62,7 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
 
         if (selectedContractor is null)
         {
-            SelectedContractor = Contractors.First();
+            SelectedContractor = contractors.Count() > 0 ? Contractors.First() : null;
         }
         else
         {

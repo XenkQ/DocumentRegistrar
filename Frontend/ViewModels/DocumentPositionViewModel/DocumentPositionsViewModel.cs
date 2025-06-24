@@ -18,15 +18,18 @@ public partial class DocumentPositionsViewModel : ViewModelBase
     public ObservableCollection<DocumentPositionDto> DocumentPositions { get; private set; } = new();
 
     private readonly IDocumentPositionApiService _documentPositionApiService;
+    private readonly IDialogService _dialogService;
 
     [ObservableProperty]
     private AdmissionDocumentDto _admissionDocument;
 
     public DocumentPositionsViewModel(
         IDocumentPositionApiService documentPositionApiService,
+        IDialogService dialogService,
         INavigationService navigationService) : base(navigationService)
     {
         _documentPositionApiService = documentPositionApiService;
+        _dialogService = dialogService;
     }
 
     public async Task LoadDataAsync(int admissionDocumentId)
@@ -38,7 +41,8 @@ public partial class DocumentPositionsViewModel : ViewModelBase
         IEnumerable<DocumentPositionDto> documentPositions =
             await ApiHelper.SafeApiCallAsync(
                 () => _documentPositionApiService.GetDocumentPositionsUnderAdmisionDocumentAsync(admissionDocumentId),
-                error => System.Console.WriteLine(error)) ?? new List<DocumentPositionDto>();
+                error => _dialogService.ShowMessageAsync("Can't retrive data from server", error))
+            ?? new List<DocumentPositionDto>();
 
         foreach (var documentPosition in documentPositions)
         {
