@@ -34,6 +34,7 @@ This is a modern Windows desktop application built with **WinUI 3** and **.NET 9
 ## Technologies Used
 - **.NET 9**
 - **Auto Mapper**
+- **Microsoft SQL Server**
 
 ### Backend
 - **.NET Core**
@@ -52,6 +53,7 @@ This is a modern Windows desktop application built with **WinUI 3** and **.NET 9
 - Windows 10 version 17763 or later
 - Visual Studio 2022 (latest recommended)
 - .NET 9 SDK
+- Microsoft SQL Server 2022 Express
 
 ### Build & Run
 
@@ -65,11 +67,14 @@ This is a modern Windows desktop application built with **WinUI 3** and **.NET 9
 4. **Build solution**
    Press `Ctrl + shift + b` to build entire solution.
 
-4. **Run Backend without debug mode**
+5. **Edit db connection string in backend**
+  `appsettings.json` attribute `ConnectionStrings > DefaultConnection`
 
-5. **Set `Frontend` as the startup project**
+6. **Run Backend without debug mode**
 
-6. **Build and run**  
+7. **Set `Frontend` as the startup project**
+
+8. **Build and run**  
    Press `F5` to build and launch the application.
 
 ## Screenshots (Polish version)
