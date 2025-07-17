@@ -14,7 +14,6 @@ public class AppMappingProfile : Profile
             .ForMember(dest => dest.ContractorName, opt => opt.MapFrom(src => src.Contractor.Name))
             .ForMember(dest => dest.ContractorSymbol, opt => opt.MapFrom(src => src.Contractor.Symbol));
         CreateMap<CreateAdmissionDocumentDto, AdmissionDocument>();
-        CreateMap<CreateAdmissionDocumentDto, AdmissionDocument>();
         CreateMap<UpdateAdmissionDocumentDto, AdmissionDocument>();
 
         CreateMap<DocumentPosition, DocumentPositionDto>();

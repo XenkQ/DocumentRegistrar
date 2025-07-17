@@ -12,6 +12,7 @@ namespace Frontend.ViewModels.ContractorViewModels;
 public partial class ContractorDetailsViewModel : ObjectValidationalViewModel
 {
     private readonly IContractorApiService _contractorApiService;
+    private readonly IDialogService _dialogService;
 
     [ObservableProperty]
     private ContractorDto _contractor = new();
@@ -22,6 +23,7 @@ public partial class ContractorDetailsViewModel : ObjectValidationalViewModel
         INavigationService navigationService) : base(dialogService, navigationService)
     {
         _contractorApiService = contractorApiService;
+        _dialogService = dialogService;
     }
 
     public bool IsEditMode => Contractor.Id != default;
@@ -51,7 +53,10 @@ public partial class ContractorDetailsViewModel : ObjectValidationalViewModel
 
             if (canProceedWithObject)
             {
-                await _contractorApiService.UpdateContractorAsync(Contractor.Id, updateContractor);
+                await ApiHelper.SafeApiCallAsync(
+                     () => _contractorApiService.UpdateContractorAsync(Contractor.Id, updateContractor),
+                     error => _dialogService.ShowMessageAsync("Can't update contractor", error)
+                );
             }
         }
         else
@@ -68,7 +73,10 @@ public partial class ContractorDetailsViewModel : ObjectValidationalViewModel
 
             if (canProceedWithObject)
             {
-                await _contractorApiService.CreateContractorAsync(createContractor);
+                await ApiHelper.SafeApiCallAsync(
+                     () => _contractorApiService.CreateContractorAsync(createContractor),
+                     error => _dialogService.ShowMessageAsync("Can't create contractor", error)
+                );
             }
         }
 

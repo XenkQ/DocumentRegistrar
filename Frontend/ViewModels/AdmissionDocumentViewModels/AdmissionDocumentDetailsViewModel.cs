@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.AdmissionDocumentViewModels;
@@ -100,8 +101,9 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
 
             if (canProceedWithObject)
             {
-                await _admissionDocumentApiService.UpdateAdmissionDocumentAsync(
-                    AdmissionDocument.Id, updateAdmissionDocument
+                await ApiHelper.SafeApiCallAsync(
+                    () => _admissionDocumentApiService.UpdateAdmissionDocumentAsync(AdmissionDocument.Id, updateAdmissionDocument),
+                    error => _dialogService.ShowMessageAsync("Can't update admission document", error)
                 );
             }
         }
@@ -120,7 +122,10 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
 
             if (canProceedWithObject)
             {
-                await _admissionDocumentApiService.CreateAdmissionDocumentAsync(createAdmissionDocument);
+                await ApiHelper.SafeApiCallAsync(
+                    () => _admissionDocumentApiService.CreateAdmissionDocumentAsync(createAdmissionDocument),
+                    error => _dialogService.ShowMessageAsync("Can't create admission document", error)
+                );
             }
         }
 

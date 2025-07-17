@@ -1,4 +1,5 @@
-﻿using Backend.Services;
+﻿using Backend.Helpers;
+using Backend.Services;
 using Dtos.ContractorsDtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,9 +43,11 @@ public class ContractorController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var id = _contractorService.Create(dto);
-
-        return Created($"api/contractor/{id}", id);
+        return ControllerHelper.HandleCreate(
+            this,
+            () => _contractorService.Create(dto),
+            "api/contractor"
+        );
     }
 
     [HttpPut("{id}")]
@@ -55,12 +58,9 @@ public class ContractorController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        bool isUpdated = _contractorService.Update(id, dto);
-        if (isUpdated)
-        {
-            return Ok();
-        }
-
-        return NotFound();
+        return ControllerHelper.HandleUpdate(
+            this,
+            () => _contractorService.Update(id, dto)
+        );
     }
 }

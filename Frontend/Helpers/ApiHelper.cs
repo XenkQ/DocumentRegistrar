@@ -7,7 +7,15 @@ namespace Frontend.Helpers;
 
 public static class ApiHelper
 {
-    public static async Task<T?> SafeApiCallAsync<T>(Func<Task<T>> apiCall, Action<string>? onError = null)
+    public static Task<T?> SafeApiCallAsync<T>(Func<Task<T>> apiCall, Action<string>? onError = null)
+    => SafeApiCallCoreAsync(apiCall, onError);
+
+    public static Task SafeApiCallAsync(Func<Task> apiCall, Action<string>? onError = null)
+        => SafeApiCallCoreAsync<object?>(async () => { await apiCall(); return null; }, onError);
+
+    private static async Task<TResult?> SafeApiCallCoreAsync<TResult>(
+        Func<Task<TResult>> apiCall,
+        Action<string>? onError)
     {
         try
         {
@@ -17,9 +25,9 @@ public static class ApiHelper
         {
             string message = statusCode switch
             {
-                HttpStatusCode.BadRequest => "Bad request. Please check your input.",
-                HttpStatusCode.NotFound => "The requested resource was not found.",
-                HttpStatusCode.InternalServerError => "A server error occurred. Please try again later.",
+                HttpStatusCode.BadRequest => $"Bad request. Please check your input. Exception: {ex}",
+                HttpStatusCode.NotFound => $"The requested resource was not found. . Exception: {ex}",
+                HttpStatusCode.InternalServerError => $"A server error occurred. Please try again later. . Exception: {ex}",
                 _ => $"Request failed with status code {(int)statusCode}."
             };
 

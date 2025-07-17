@@ -58,7 +58,10 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
 
             if (canProceedWithObject)
             {
-                await _documentPositionApiService.UpdateDocumentPositionAsync(DocumentPosition.Id, updateDocumentPosition);
+                await ApiHelper.SafeApiCallAsync(
+                    () => _documentPositionApiService.UpdateDocumentPositionAsync(DocumentPosition.Id, updateDocumentPosition),
+                    error => _dialogService.ShowMessageAsync("Can't update document position", error)
+                );
             }
         }
         else
@@ -77,7 +80,10 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
 
             if (canProceedWithObject)
             {
-                await _documentPositionApiService.CreateDocumentPositionAsync(createDocumentPosition);
+                await ApiHelper.SafeApiCallAsync(
+                    () => _documentPositionApiService.CreateDocumentPositionAsync(createDocumentPosition),
+                    error => _dialogService.ShowMessageAsync("Can't create document position", error)
+                );
             }
         }
 

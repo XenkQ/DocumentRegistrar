@@ -1,4 +1,5 @@
-﻿using Backend.Services;
+﻿using Backend.Helpers;
+using Backend.Services;
 using Dtos.DocumentPositionDtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,9 +43,11 @@ public class DocumentPositionController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var id = _documentPositionService.Create(dto);
-
-        return Created($"api/document-position/{id}", id);
+        return ControllerHelper.HandleCreate(
+            this,
+            () => _documentPositionService.Create(dto),
+            "api/document-position"
+        );
     }
 
     [HttpPut("{id}")]
@@ -55,12 +58,9 @@ public class DocumentPositionController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        bool isUpdated = _documentPositionService.Update(id, dto);
-        if (isUpdated)
-        {
-            return Ok();
-        }
-
-        return NotFound();
+        return ControllerHelper.HandleUpdate(
+            this,
+            () => _documentPositionService.Update(id, dto)
+        );
     }
 }

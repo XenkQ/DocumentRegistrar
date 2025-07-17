@@ -1,6 +1,8 @@
-﻿using Backend.Services;
+﻿using Backend.Helpers;
+using Backend.Services;
 using Dtos.AdmissionDocumentDtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
@@ -42,9 +44,11 @@ public class AdmissionDocumentController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var id = _admissionDocumentService.Create(dto);
-
-        return Created($"api/admission-document/{id}", id);
+        return ControllerHelper.HandleCreate(
+            this,
+            () => _admissionDocumentService.Create(dto),
+            "api/admission-document"
+        );
     }
 
     [HttpPut("{id}")]
@@ -55,12 +59,9 @@ public class AdmissionDocumentController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        bool isUpdated = _admissionDocumentService.Update(id, value);
-        if (isUpdated)
-        {
-            return Ok();
-        }
-
-        return NotFound();
+        return ControllerHelper.HandleUpdate(
+            this,
+            () => _admissionDocumentService.Update(id, value)
+        );
     }
 }
