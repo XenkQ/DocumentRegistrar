@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a modern Windows desktop application built with **WinUI 3** and **.NET 9**. The application provides a user-friendly interface for managing contractors, admission documents, and document positions. It leverages the MVVM pattern, CommunityToolkit, and a modular service-based architecture for maintainability and scalability.
+Learning project to create a modern Windows desktop application built with **WinUI 3** and **.NET 9**. The application provides a user-friendly interface for managing contractors, admission documents, and document positions. It leverages the MVVM pattern, CommunityToolkit, and a modular service-based architecture for maintainability and scalability.
 
 ---
 
