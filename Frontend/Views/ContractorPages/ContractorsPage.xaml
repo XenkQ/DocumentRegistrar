@@ -17,108 +17,161 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
 
-    <Grid Padding="24">
+    <Grid Padding="24" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--  Top Buttons  -->
-        <Grid Grid.Row="0" Margin="0,0,0,16">
+        <Grid Grid.Row="0" Margin="0,0,0,24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button
-                Grid.Column="0"
-                Width="100"
-                Margin="0,0,8,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Command="{Binding NavigateToMainPageCommand}"
-                Content="Cofnij" />
+            <StackPanel
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="16">
+                <Button
+                    Command="{Binding NavigateToMainPageCommand}"
+                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                    ToolTipService.ToolTip="Cofnij">
+                    <FontIcon FontSize="16" Glyph="&#xE72B;" />
+                </Button>
+
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <FontIcon
+                        FontSize="24"
+                        Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                        Glyph="&#xE716;" />
+                    <TextBlock
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="Kontrahenci" />
+                </StackPanel>
+            </StackPanel>
+
             <Button
                 Grid.Column="2"
-                Width="100"
-                Margin="8,0,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
+                Padding="16,8"
                 Command="{Binding NavigateToContractorDetailsPageCommand}"
-                Content="Dodaj" />
+                Style="{ThemeResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon FontSize="16" Glyph="&#xE710;" />
+                    <TextBlock Text="Dodaj Kontrahenta" />
+                </StackPanel>
+            </Button>
         </Grid>
 
-        <!--  Header below top buttons  -->
-        <TextBlock
-            Grid.Row="1"
-            Margin="0,0,0,16"
-            FontSize="24"
-            FontWeight="SemiBold"
-            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-            Text="Kontrahenci" />
-
-        <!--  Table-like ListView  -->
         <Border
-            Grid.Row="2"
-            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-            BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+            Grid.Row="1"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
             BorderThickness="1"
-            CornerRadius="4">
-            <Grid>
-                <ListView
-                    Margin="0"
-                    HorizontalContentAlignment="Stretch"
-                    ItemsSource="{Binding Contractors}">
-                    <ListView.Header>
-                        <controls:ContractorHeaders />
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="40" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Grid.Column="0"
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                    Text="{Binding Name}" />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                    Text="{Binding Symbol}" />
-                                <StackPanel
-                                    Grid.Column="2"
-                                    Margin="0,0,12,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Orientation="Horizontal">
-                                    <Button
-                                        Command="{Binding DataContext.NavigateToContractorDetailsPageCommand, ElementName=ContractorsPageRoot}"
-                                        CommandParameter="{Binding}"
-                                        Content="Edytuj" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+            CornerRadius="8">
 
-                <Grid Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    Canvas.ZIndex="10"
+                    Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <controls:ContractorHeaders Grid.Row="0" />
+                    <Border
+                        Grid.Row="0"
+                        Padding="0,12"
+                        Background="{ThemeResource LayerFillColorAltBrush}"
+                        BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                        BorderThickness="0,0,0,1"
+                        CornerRadius="8,8,0,0">
+                        <controls:ContractorHeaders Background="Transparent" />
+                    </Border>
                     <controls:LoadingOverlay Grid.Row="1" />
                 </Grid>
+
+                <ListView
+                    Margin="0"
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding Contractors}"
+                    SelectionMode="Single"
+                    Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+
+                    <ListView.Header>
+                        <Border
+                            Padding="0,12"
+                            Background="{ThemeResource LayerFillColorAltBrush}"
+                            BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                            BorderThickness="0,0,0,1"
+                            CornerRadius="8,8,0,0">
+                            <controls:ContractorHeaders Background="Transparent" />
+                        </Border>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}" BorderThickness="0,0,0,1">
+
+                                <Grid Height="52" Background="Transparent">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="12,0"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                        Text="{Binding Name}"
+                                        TextTrimming="CharacterEllipsis" />
+
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Margin="12,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                        Text="{Binding Symbol}" />
+
+                                    <StackPanel
+                                        Grid.Column="2"
+                                        Margin="0,0,12,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+
+                                        <Button
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Command="{Binding DataContext.NavigateToContractorDetailsPageCommand, ElementName=ContractorsPageRoot}"
+                                            CommandParameter="{Binding}"
+                                            ToolTipService.ToolTip="Edytuj">
+                                            <FontIcon
+                                                FontSize="16"
+                                                Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                                                Glyph="&#xE70F;" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
             </Grid>
         </Border>
     </Grid>

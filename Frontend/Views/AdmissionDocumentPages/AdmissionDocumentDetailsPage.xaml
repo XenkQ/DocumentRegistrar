@@ -16,81 +16,113 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
 
-    <Grid>
-        <!--  Main Content  -->
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
         <Grid Padding="24" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Button
+            <StackPanel
                 Grid.Row="0"
-                Width="100"
-                Command="{Binding NavigateToAdmissionDocumentsPageCommand}"
-                Content="Cofnij" />
+                Margin="0,0,0,24"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="16">
+                <Button
+                    Command="{Binding NavigateToAdmissionDocumentsPageCommand}"
+                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                    ToolTipService.ToolTip="Cofnij">
+                    <FontIcon FontSize="16" Glyph="&#xE72B;" />
+                </Button>
 
-            <Grid Grid.Row="1" Margin="0,24,0,24">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="200" />
-                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <FontIcon
+                        FontSize="24"
+                        Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                        Glyph="&#xE70F;" />
+                    <TextBlock
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="Szczegóły Dokumentu" />
+                </StackPanel>
+            </StackPanel>
 
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"
-                    Text="Data:" />
-                <CalendarDatePicker
-                    x:Name="DocumentDatePicker"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Date="{Binding AdmissionDocument.Date, Mode=TwoWay, Converter={StaticResource DateOnlyToDateTimeOffsetConverter}}" />
+            <Border
+                Grid.Row="1"
+                MinWidth="450"
+                MaxWidth="600"
+                Padding="32"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
 
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="0,8,8,0"
-                    VerticalAlignment="Center"
-                    Text="Symbol:" />
-                <TextBox
-                    x:Name="SymbolTextBox"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="0,8,0,0"
-                    Text="{Binding AdmissionDocument.Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <StackPanel Spacing="20">
 
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Margin="0,8,8,0"
-                    VerticalAlignment="Center"
-                    Text="Kontrahent:" />
-                <ComboBox
-                    x:Name="KontrahentComboBox"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="0,8,0,0"
-                    DisplayMemberPath="Name"
-                    ItemsSource="{Binding Contractors}"
-                    SelectedItem="{Binding SelectedContractor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </Grid>
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="Edycja danych" />
 
-            <Button
-                Grid.Row="2"
-                Width="100"
-                Command="{Binding AdmissionDocumentSaveCommand}"
-                Content="Zapisz" />
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontWeight="Medium"
+                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            Text="Data" />
+                        <CalendarDatePicker
+                            x:Name="DocumentDatePicker"
+                            HorizontalAlignment="Stretch"
+                            Date="{Binding AdmissionDocument.Date, Mode=TwoWay, Converter={StaticResource DateOnlyToDateTimeOffsetConverter}}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontWeight="Medium"
+                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            Text="Symbol" />
+                        <TextBox
+                            x:Name="SymbolTextBox"
+                            PlaceholderText="Wprowadź symbol..."
+                            Text="{Binding AdmissionDocument.Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            FontWeight="Medium"
+                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            Text="Kontrahent" />
+                        <ComboBox
+                            x:Name="KontrahentComboBox"
+                            HorizontalAlignment="Stretch"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding Contractors}"
+                            PlaceholderText="Wybierz kontrahenta"
+                            SelectedItem="{Binding SelectedContractor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+
+                    <Grid Margin="0,24,0,0">
+                        <Button
+                            Padding="0,10"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding AdmissionDocumentSaveCommand}"
+                            Style="{ThemeResource AccentButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE74E;" />
+                                <TextBlock Text="Zapisz zmiany" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
         </Grid>
 
-        <!--  Loading Overlay  -->
-        <controls:LoadingOverlay Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <controls:LoadingOverlay Canvas.ZIndex="100" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
     </Grid>
 </Page>

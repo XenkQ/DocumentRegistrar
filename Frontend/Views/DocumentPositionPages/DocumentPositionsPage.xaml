@@ -17,165 +17,213 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
 
-    <Grid Padding="24">
+    <Grid Padding="24" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--  Top Buttons  -->
-        <Grid Grid.Row="0" Margin="0,0,0,16">
+        <Grid Grid.Row="0" Margin="0,0,0,24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-
-            <Button
-                Grid.Column="0"
-                Width="100"
-                Margin="0,0,8,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Command="{Binding NavigateToAdmissionDocumentsPageCommand}"
-                Content="Cofnij" />
+            <StackPanel
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="16">
+                <Button Command="{Binding NavigateToAdmissionDocumentsPageCommand}" Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                    <FontIcon FontSize="16" Glyph="&#xE72B;" />
+                </Button>
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <FontIcon
+                        FontSize="24"
+                        Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                        Glyph="&#xE8FD;" />
+                    <TextBlock
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="Pozycje Dokumentu" />
+                </StackPanel>
+            </StackPanel>
             <Button
                 Grid.Column="2"
-                Width="100"
-                Margin="8,0,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
+                Padding="16,8"
                 Command="{Binding NavigateToDocumentPositionDetailsPageCommand}"
-                Content="Dodaj" />
+                Style="{ThemeResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon FontSize="16" Glyph="&#xE710;" />
+                    <TextBlock Text="Dodaj Pozycję" />
+                </StackPanel>
+            </Button>
         </Grid>
 
-        <!--  Header  -->
-        <TextBlock
-            Grid.Row="1"
-            Margin="0,0,0,16"
-            FontSize="24"
-            FontWeight="SemiBold"
-            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-            Text="Pozycje Dokumentu" />
-
-        <!--  Admission Document Info  -->
-        <Grid
-            Grid.Row="2"
-            Margin="0,0,0,16"
-            DataContext="{Binding AdmissionDocument}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="0,0,12,0"
-                FontWeight="Bold"
-                Text="Data" />
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="1"
-                Text="{Binding Date}" />
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="0,0,12,0"
-                FontWeight="Bold"
-                Text="Symbol" />
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="1"
-                Text="{Binding Symbol}" />
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="0"
-                Margin="0,0,12,0"
-                FontWeight="Bold"
-                Text="Kontrahent" />
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="1"
-                Text="{Binding ContractorName}" />
-        </Grid>
-
-        <!--  Table-like ListView  -->
         <Border
-            Grid.Row="3"
-            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-            BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+            Grid.Row="1"
+            Margin="0,0,0,24"
+            Padding="16"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
             BorderThickness="1"
-            CornerRadius="4">
+            CornerRadius="8">
+            <Grid DataContext="{Binding AdmissionDocument}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="0,0,8,0"
+                    FontWeight="Medium"
+                    Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                    Text="Symbol:" />
+                <TextBlock
+                    Grid.Column="1"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                    Text="{Binding Symbol}" />
+                <TextBlock
+                    Grid.Column="3"
+                    Margin="0,0,8,0"
+                    FontWeight="Medium"
+                    Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                    Text="Data:" />
+                <TextBlock
+                    Grid.Column="4"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                    Text="{Binding Date, ConverterParameter=\{0:yyyy-MM-dd\}, Mode=OneWay}" />
+                <TextBlock
+                    Grid.Column="6"
+                    Margin="0,0,8,0"
+                    FontWeight="Medium"
+                    Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                    Text="Kontrahent:" />
+                <TextBlock
+                    Grid.Column="7"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                    Text="{Binding ContractorName}" />
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="2"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
 
             <Grid>
-                <ListView
-                    Margin="0"
-                    HorizontalContentAlignment="Stretch"
-                    ItemsSource="{Binding DocumentPositions}"
-                    Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                    <ListView.Header>
-                        <controls:DocumentPositionHeaders />
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="40" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Grid.Column="0"
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                    Text="{Binding NameOfProduct}" />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                    Text="{Binding MeasurementUnit}" />
-                                <TextBlock
-                                    Grid.Column="2"
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                    Text="{Binding Quantity}" />
-                                <StackPanel
-                                    Grid.Column="3"
-                                    Margin="0,0,12,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Orientation="Horizontal">
-                                    <Button
-                                        Command="{Binding DataContext.NavigateToDocumentPositionDetailsPageCommand, ElementName=PositionDocumentsPageRoot}"
-                                        CommandParameter="{Binding}"
-                                        Content="Edytuj" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
-                <Grid Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    Canvas.ZIndex="10"
+                    Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
-                    <controls:DocumentPositionHeaders Grid.Row="0" />
+                    <Border
+                        Grid.Row="0"
+                        Padding="0,12"
+                        Background="{ThemeResource LayerFillColorAltBrush}"
+                        BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                        BorderThickness="0,0,0,1"
+                        CornerRadius="8,8,0,0">
+                        <controls:DocumentPositionHeaders Background="Transparent" />
+                    </Border>
                     <controls:LoadingOverlay Grid.Row="1" />
                 </Grid>
+
+                <ListView
+                    Margin="0"
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding DocumentPositions}"
+                    SelectionMode="Single"
+                    Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+
+                    <ListView.Header>
+                        <Border
+                            Padding="0,12"
+                            Background="{ThemeResource LayerFillColorAltBrush}"
+                            BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                            BorderThickness="0,0,0,1"
+                            CornerRadius="8,8,0,0">
+
+                            <controls:DocumentPositionHeaders Background="Transparent" />
+                        </Border>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}" BorderThickness="0,0,0,1">
+                                <Grid Height="52" Background="Transparent">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="12,0"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                        Text="{Binding NameOfProduct}"
+                                        TextTrimming="CharacterEllipsis" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Margin="12,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                        Text="{Binding MeasurementUnit}" />
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        Margin="12,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                        Text="{Binding Quantity}" />
+                                    <StackPanel
+                                        Grid.Column="3"
+                                        Margin="0,0,12,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Command="{Binding DataContext.NavigateToDocumentPositionDetailsPageCommand, ElementName=PositionDocumentsPageRoot}"
+                                            CommandParameter="{Binding}"
+                                            ToolTipService.ToolTip="Edytuj">
+                                            <FontIcon
+                                                FontSize="16"
+                                                Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                                                Glyph="&#xE70F;" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
             </Grid>
         </Border>
     </Grid>
