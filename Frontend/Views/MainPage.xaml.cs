@@ -6,13 +6,13 @@ namespace Frontend.Views;
 
 public sealed partial class MainPage : Page
 {
-    private readonly MainViewModel _mainViewModel;
+    private readonly MainPageViewModel _mainViewModel;
 
-    public MainPage() : this(Ioc.Default.GetRequiredService<MainViewModel>())
+    public MainPage() : this(Ioc.Default.GetRequiredService<MainPageViewModel>())
     {
     }
 
-    public MainPage(MainViewModel mainViewModel)
+    public MainPage(MainPageViewModel mainViewModel)
     {
         _mainViewModel = mainViewModel;
 

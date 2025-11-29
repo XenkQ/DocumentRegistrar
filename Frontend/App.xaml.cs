@@ -44,7 +44,7 @@ public sealed partial class App : Application
             .AddSingleton<MainWindow>()
             .AddSingleton<INavigationService, NavigationService>()
             .AddSingleton<IDialogService, DialogService>()
-            .AddSingleton<MainViewModel>()
+            .AddSingleton<MainPageViewModel>()
             //Contractor
             .AddSingleton<ContractorsViewModel>()
             .AddTransient<ContractorDetailsViewModel>()

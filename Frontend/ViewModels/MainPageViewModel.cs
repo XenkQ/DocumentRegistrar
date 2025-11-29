@@ -4,13 +4,11 @@ using Frontend.Views;
 
 namespace Frontend.ViewModels;
 
-public partial class MainViewModel
+public partial class MainPageViewModel : ViewModelBase
 {
-    private readonly INavigationService _navigationService;
-
-    public MainViewModel(INavigationService navigationService)
+    public MainPageViewModel(INavigationService navigationService)
+        : base(navigationService)
     {
-        _navigationService = navigationService;
     }
 
     [RelayCommand]
@@ -21,6 +19,12 @@ public partial class MainViewModel
 
     [RelayCommand]
     private void NavigateToAdmissionDocuments()
+    {
+        _navigationService.NavigateTo<AdmissionDocumentsPage>();
+    }
+
+    [RelayCommand]
+    private void NavigateToDocumentPositionTypes()
     {
         _navigationService.NavigateTo<AdmissionDocumentsPage>();
     }
