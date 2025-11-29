@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Frontend.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Frontend.CustomControls"
+    xmlns:converters="using:Frontend.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Frontend.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid Padding="24" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="0"
+                Margin="0,0,0,24"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="16">
+                <Button
+                    Command="{Binding NavigateToMainPageCommand}"
+                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                    ToolTipService.ToolTip="Wróć do strony głównej">
+                    <FontIcon FontSize="16" Glyph="&#xE72B;" />
+                </Button>
+
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <FontIcon
+                        FontSize="24"
+                        Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                        Glyph="&#xE77B;" />
+                    <TextBlock
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="Logowanie" />
+                </StackPanel>
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                MinWidth="400"
+                MaxWidth="500"
+                Padding="32"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+
+                <StackPanel Spacing="24">
+
+                    <StackPanel Spacing="4">
+                        <TextBlock
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            Text="Witaj ponownie" />
+                        <TextBlock
+                            FontSize="14"
+                            Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                            Text="Zaloguj się używając adresu email." />
+                    </StackPanel>
+
+                    <StackPanel Spacing="20">
+
+                        <StackPanel Spacing="8">
+                            <TextBlock
+                                FontWeight="Medium"
+                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                Text="Email" />
+                            <TextBox
+                                x:Name="EmailTextBox"
+                                InputScope="EmailSmtpAddress"
+                                PlaceholderText="name@example.com"
+                                Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="8">
+                            <Grid>
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    FontWeight="Medium"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                    Text="Hasło" />
+                            </Grid>
+                            <PasswordBox x:Name="PasswordBox" PlaceholderText="Wprowadź hasło..." />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Grid Margin="0,8,0,0">
+                        <Button
+                            Padding="0,12"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding LoginCommand}"
+                            CommandParameter="{Binding ElementName=PasswordBox}"
+                            Style="{ThemeResource AccentButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE72E;" />
+                                <TextBlock Text="Zaloguj się" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <controls:LoadingOverlay Canvas.ZIndex="100" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </Grid>
+</Page>

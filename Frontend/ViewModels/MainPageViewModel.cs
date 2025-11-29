@@ -6,9 +6,17 @@ namespace Frontend.ViewModels;
 
 public partial class MainPageViewModel : ViewModelBase
 {
-    public MainPageViewModel(INavigationService navigationService)
+    public bool CanShowDocumentPositionTypePanel
+    {
+        get => _userService.IsAdmin() || _userService.IsManager();
+    }
+
+    private readonly IUserService _userService;
+
+    public MainPageViewModel(IUserService userService, INavigationService navigationService)
         : base(navigationService)
     {
+        _userService = userService;
     }
 
     [RelayCommand]
@@ -27,5 +35,11 @@ public partial class MainPageViewModel : ViewModelBase
     private void NavigateToDocumentPositionTypes()
     {
         _navigationService.NavigateTo<AdmissionDocumentsPage>();
+    }
+
+    [RelayCommand]
+    private void NavigateToLoginPage()
+    {
+        _navigationService.NavigateTo<LoginPage>();
     }
 }

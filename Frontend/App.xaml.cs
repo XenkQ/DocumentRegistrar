@@ -4,6 +4,7 @@ using Frontend.Services.Api;
 using Frontend.ViewModels;
 using Frontend.ViewModels.AdmissionDocumentViewModels;
 using Frontend.ViewModels.ContractorViewModels;
+using Frontend.ViewModels.DocumentPositionTypeViewModel;
 using Frontend.ViewModels.DocumentPositionViewModel;
 using Frontend.Views;
 using Microsoft.Extensions.Configuration;
@@ -42,7 +43,10 @@ public sealed partial class App : Application
     {
         IServiceCollection services = new ServiceCollection()
             .AddSingleton<MainWindow>()
+            .AddSingleton<ILocalStorageService, LocalStorageService>()
             .AddSingleton<INavigationService, NavigationService>()
+            .AddSingleton<IAccountApiService, AccountApiService>()
+            .AddSingleton<IUserService, UserService>()
             .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<MainPageViewModel>()
             //Contractor
@@ -56,7 +60,14 @@ public sealed partial class App : Application
             //DocumentPosition
             .AddSingleton<DocumentPositionsViewModel>()
             .AddTransient<DocumentPositionDetailsViewModel>()
-            .AddSingleton<IDocumentPositionApiService, DocumentPositionApiService>();
+            .AddSingleton<IDocumentPositionApiService, DocumentPositionApiService>()
+            //DocumentPositionType
+            .AddSingleton<DocumentPositionTypesViewModel>()
+            .AddTransient<DocumentPositionTypeDetailsViewModel>()
+            .AddSingleton<IDocumentPositionTypeApiService, DocumentPositionTypeApiService>()
+            //Login
+            .AddSingleton<LoginViewModel>()
+            .AddTransient<LoginPage>();
 
         services.AddHttpClient("BackendApi", client =>
         {

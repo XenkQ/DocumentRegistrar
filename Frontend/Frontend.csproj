@@ -22,10 +22,14 @@
     <None Remove="appsettings.json" />
     <None Remove="CustomControls\AdmissionDocumentHeaders.xaml" />
     <None Remove="CustomControls\ContractorHeaders.xaml" />
+    <None Remove="CustomControls\DocumentPositionTypeHeaders.xaml" />
     <None Remove="CustomControls\LoadingOverlay.xaml" />
     <None Remove="Views\AdmissionDocumentsPage.xaml" />
     <None Remove="Views\ContractorsPage.xaml" />
     <None Remove="Views\DocumentPositionPages\DocumentPositionsPage.xaml" />
+    <None Remove="Views\DocumentPositionTypePages\DocumentPositionTypeDetailsPage.xaml" />
+    <None Remove="Views\DocumentPositionTypePages\DocumentPositionTypesPage.xaml" />
+    <None Remove="Views\LoginPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -99,6 +103,26 @@
   </PropertyGroup>
   <ItemGroup>
     <PRIResource Remove="Views\AdmissionDocument\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="CustomControls\DocumentPositionTypeHeaders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DocumentPositionTypePages\DocumentPositionTypeDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DocumentPositionTypePages\DocumentPositionTypesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="CustomControls\DocumentPositionHeaders.xaml">
