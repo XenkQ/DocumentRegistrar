@@ -9,8 +9,7 @@ public class Contractor
     [Required]
     public string Symbol { get; set; }
 
-    [Required]
-    [StringLength(100)]
+    [StringLength(100), Required]
     public string Name { get; set; }
 
     public List<AdmissionDocument> AdmissionDocuments { get; set; }

@@ -7,12 +7,10 @@ public class DocumentPosition
 {
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(100)]
+    [StringLength(100), Required]
     public string NameOfProduct { get; set; }
 
-    [Required]
-    [StringLength(15)]
+    [StringLength(15), Required]
     public string MeasurementUnit { get; set; }
 
     [Required]
@@ -21,7 +19,6 @@ public class DocumentPosition
     [Required]
     public int AdmissionDocumentId { get; set; }
 
-    [Required]
-    [ForeignKey("AdmissionDocumentId")]
+    [Required, ForeignKey("AdmissionDocumentId")]
     public AdmissionDocument AdmissionDocument { get; set; }
 }
