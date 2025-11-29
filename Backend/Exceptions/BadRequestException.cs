@@ -15,8 +15,4 @@ public class BadRequestException : Exception
     public BadRequestException(string? message, Exception? innerException) : base(message, innerException)
     {
     }
-
-    protected BadRequestException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }
