@@ -17,15 +17,28 @@ public class Seeder
     {
         if (_dbContext.Database.CanConnect())
         {
+            bool dataUpdated = false;
+
             if (!_dbContext.Roles.Any())
             {
                 _dbContext.Roles.AddRange(GetInitialRoles());
-                _dbContext.SaveChanges();
+                dataUpdated = true;
             }
 
             if (!_dbContext.Users.Any())
             {
                 _dbContext.Users.AddRange(GetInitialUsers());
+                dataUpdated = true;
+            }
+
+            if (!_dbContext.DocumentPositionTypes.Any())
+            {
+                _dbContext.DocumentPositionTypes.AddRange(GetInitialDocumentPositionTypes());
+                dataUpdated = true;
+            }
+
+            if (dataUpdated)
+            {
                 _dbContext.SaveChanges();
             }
         }
@@ -84,5 +97,17 @@ public class Seeder
         }
 
         return users;
+    }
+
+    public IEnumerable<DocumentPositionType> GetInitialDocumentPositionTypes()
+    {
+        return [
+            new DocumentPositionType() {
+                Name = "Product",
+            },
+            new DocumentPositionType() {
+                Name = "Service"
+            }
+        ];
     }
 }

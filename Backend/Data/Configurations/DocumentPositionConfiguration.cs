@@ -8,6 +8,8 @@ public class DocumentPositionConfiguration : IEntityTypeConfiguration<DocumentPo
 {
     public void Configure(EntityTypeBuilder<DocumentPosition> builder)
     {
+        builder.HasOne(dp => dp.DocumentPositionType);
+
         builder
             .Property(p => p.NameOfProduct)
             .IsRequired()
@@ -17,5 +19,9 @@ public class DocumentPositionConfiguration : IEntityTypeConfiguration<DocumentPo
             .Property(p => p.MeasurementUnit)
             .IsRequired()
             .HasMaxLength(15);
+
+        builder
+            .Property(p => p.UnitPrice)
+            .IsRequired();
     }
 }

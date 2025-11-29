@@ -18,5 +18,11 @@ public class DocumentPositionDto
     public int Quantity { get; set; }
 
     [Required]
+    public decimal UnitPrice { get; set; }
+
+    [Required]
     public int AdmissionDocumentId { get; set; }
+
+    [Required]
+    public int DocumentPositionTypeId { get; set; }
 }

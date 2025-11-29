@@ -2,6 +2,7 @@
 using Backend.Entities;
 using Dtos.AdmissionDocumentDtos;
 using Dtos.ContractorsDtos;
+using Dtos.CreateDocumentTypeDtos;
 using Dtos.DocumentPositionDtos;
 
 namespace Backend;
@@ -19,6 +20,9 @@ public class AppMappingProfile : Profile
         CreateMap<DocumentPosition, DocumentPositionDto>();
         CreateMap<CreateDocumentPositionDto, DocumentPosition>();
         CreateMap<UpdateDocumentPositionDto, DocumentPosition>();
+
+        CreateMap<DocumentPositionTypeDto, DocumentPositionType>();
+        CreateMap<DocumentPositionType, DocumentPositionTypeDto>();
 
         CreateMap<Contractor, ContractorDto>();
         CreateMap<UpdateContractorDto, Contractor>();

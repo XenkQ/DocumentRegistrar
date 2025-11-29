@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
     public DbSet<AdmissionDocument> AdmissionDocuments { get; set; }
     public DbSet<Contractor> Contractors { get; set; }
     public DbSet<DocumentPosition> DocumentPositions { get; set; }
+    public DbSet<DocumentPositionType> DocumentPositionTypes { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
 
@@ -21,6 +22,7 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new AdmissionDocumentConfiguration());
         modelBuilder.ApplyConfiguration(new ContractorConfiguration());
         modelBuilder.ApplyConfiguration(new DocumentPositionConfiguration());
+        modelBuilder.ApplyConfiguration(new DocumentPositionTypeConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
     }

@@ -60,6 +60,7 @@ builder.Services.AddScoped<Seeder>();
 builder.Services.AddScoped<IAdmissionDocumentService, AdmissionDocumentService>();
 builder.Services.AddScoped<IContractorService, ContractorService>();
 builder.Services.AddScoped<IDocumentPositionService, DocumentPositionService>();
+builder.Services.AddScoped<IDocumentPositionTypeService, DocumentPositionTypeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 
 //Middleware

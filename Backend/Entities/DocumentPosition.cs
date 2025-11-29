@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities;
@@ -17,8 +18,17 @@ public class DocumentPosition
     public int Quantity { get; set; }
 
     [Required]
+    public decimal UnitPrice { get; set; }
+
+    [Required]
     public int AdmissionDocumentId { get; set; }
 
     [Required, ForeignKey("AdmissionDocumentId")]
     public AdmissionDocument AdmissionDocument { get; set; }
+
+    [Required]
+    public int DocumentPositionTypeId { get; set; }
+
+    [Required, ForeignKey("DocumentPositionTypeId")]
+    public DocumentPositionType DocumentPositionType { get; set; }
 }
