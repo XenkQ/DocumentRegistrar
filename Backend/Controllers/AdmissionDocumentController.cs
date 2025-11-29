@@ -1,13 +1,14 @@
 ﻿using Backend.Helpers;
 using Backend.Services;
 using Dtos.AdmissionDocumentDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
 [Route("api/admission-document")]
 [ApiController]
+[Authorize(Roles = "Admin,Manager")]
 public class AdmissionDocumentController : ControllerBase
 {
     private readonly IAdmissionDocumentService _admissionDocumentService;
@@ -18,12 +19,14 @@ public class AdmissionDocumentController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin,Manager,User")]
     public ActionResult<IEnumerable<AdmissionDocumentDto>> Get()
     {
         return Ok(_admissionDocumentService.GetAll());
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles = "Admin,Manager,User")]
     public ActionResult<AdmissionDocumentDto> Get(int id)
     {
         AdmissionDocumentDto admissionDocumentDto = _admissionDocumentService.GetById(id);
@@ -37,6 +40,7 @@ public class AdmissionDocumentController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin,Manager,User")]
     public ActionResult Create([FromBody] CreateAdmissionDocumentDto dto)
     {
         if (!ModelState.IsValid)

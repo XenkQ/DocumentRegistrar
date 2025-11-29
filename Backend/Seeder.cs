@@ -19,20 +19,19 @@ public class Seeder
         {
             if (!_dbContext.Roles.Any())
             {
-                IEnumerable<Role> roles = GetRoles();
-                _dbContext.Roles.AddRange(roles);
+                _dbContext.Roles.AddRange(GetInitialRoles());
                 _dbContext.SaveChanges();
             }
 
             if (!_dbContext.Users.Any())
             {
-                _dbContext.Users.Add(GetInitialUser());
+                _dbContext.Users.AddRange(GetInitialUsers());
                 _dbContext.SaveChanges();
             }
         }
     }
 
-    private IEnumerable<Role> GetRoles()
+    private IEnumerable<Role> GetInitialRoles()
     {
         return
         [
@@ -40,24 +39,50 @@ public class Seeder
             {
                 Name = "Admin"
             },
+            new Role()
+            {
+                Name = "User"
+            },
+            new Role()
+            {
+                Name = "Manager"
+            },
         ];
     }
 
-    private User GetInitialUser()
+    private IEnumerable<User> GetInitialUsers()
     {
-        //Password for initial app admin
         IPasswordHasher<User> passwordHasher = new PasswordHasher<User>();
 
-        var user = new User()
+        List<User> users = [
+            new User()
+            {
+                FirstName = "Admin",
+                LastName = "System",
+                Role = _dbContext.Roles.First(r => r.Name == "Admin"),
+                Email = "admin@start.system",
+            },
+            new User()
+            {
+                FirstName = "Manager",
+                LastName = "System",
+                Role = _dbContext.Roles.First(r => r.Name == "Manager"),
+                Email = "manager@start.system",
+            },
+            new User()
+            {
+                FirstName = "User",
+                LastName = "System",
+                Role = _dbContext.Roles.First(r => r.Name == "User"),
+                Email = "user@start.system",
+            },
+        ];
+
+        foreach (var user in users)
         {
-            FirstName = "System",
-            LastName = "Administrator",
-            Role = _dbContext.Roles.First(),
-            Email = "-"
-        };
+            user.PasswordHash = passwordHasher.HashPassword(user, "start");
+        }
 
-        user.PasswordHash = passwordHasher.HashPassword(user, "admin");
-
-        return user;
+        return users;
     }
 }
