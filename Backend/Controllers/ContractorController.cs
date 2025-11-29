@@ -8,7 +8,7 @@ namespace Backend.Controllers;
 
 [Route("api/contractor")]
 [ApiController]
-[Authorize(Roles = "Admin,Manager")]
+[Authorize]
 public class ContractorController : ControllerBase
 {
     private readonly IContractorService _contractorService;
@@ -40,6 +40,7 @@ public class ContractorController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin,Manager")]
     public ActionResult Create([FromBody] CreateContractorDto dto)
     {
         if (!ModelState.IsValid)
@@ -55,6 +56,7 @@ public class ContractorController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,Manager")]
     public ActionResult Update(int id, [FromBody] UpdateContractorDto dto)
     {
         if (!ModelState.IsValid)

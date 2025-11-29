@@ -8,7 +8,7 @@ namespace Backend.Controllers;
 
 [Route("api/admission-document")]
 [ApiController]
-[Authorize(Roles = "Admin,Manager")]
+[Authorize]
 public class AdmissionDocumentController : ControllerBase
 {
     private readonly IAdmissionDocumentService _admissionDocumentService;
@@ -56,6 +56,7 @@ public class AdmissionDocumentController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,Manager")]
     public ActionResult Update(int id, [FromBody] UpdateAdmissionDocumentDto value)
     {
         if (!ModelState.IsValid)

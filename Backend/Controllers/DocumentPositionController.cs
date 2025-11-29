@@ -8,7 +8,7 @@ namespace Backend.Controllers;
 
 [Route("api/document-position")]
 [ApiController]
-[Authorize(Roles = "Admin,Manager")]
+[Authorize]
 public class DocumentPositionController : ControllerBase
 {
     private readonly IDocumentPositionService _documentPositionService;
@@ -56,6 +56,7 @@ public class DocumentPositionController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,Manager")]
     public ActionResult Update(int id, [FromBody] UpdateDocumentPositionDto dto)
     {
         if (!ModelState.IsValid)

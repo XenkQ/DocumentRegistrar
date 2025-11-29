@@ -1,15 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Frontend.Services;
 using Frontend.Views;
+using Frontend.Views.DocumentPositionTypePages;
 
 namespace Frontend.ViewModels;
 
 public partial class MainPageViewModel : ViewModelBase
 {
-    public bool CanShowDocumentPositionTypePanel
-    {
-        get => _userService.IsAdmin() || _userService.IsManager();
-    }
+    public bool CanShowDocumentPositionTypePanel { get => _userService.IsAdmin() || _userService.IsManager(); }
+    public string UserName { get => _userService.User.Name; }
 
     private readonly IUserService _userService;
 
@@ -34,7 +33,7 @@ public partial class MainPageViewModel : ViewModelBase
     [RelayCommand]
     private void NavigateToDocumentPositionTypes()
     {
-        _navigationService.NavigateTo<AdmissionDocumentsPage>();
+        _navigationService.NavigateTo<DocumentPositionTypesPage>();
     }
 
     [RelayCommand]
