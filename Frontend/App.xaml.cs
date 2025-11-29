@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Frontend.Handlers;
 using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.ViewModels;
@@ -69,10 +70,15 @@ public sealed partial class App : Application
             .AddSingleton<LoginViewModel>()
             .AddTransient<LoginPage>();
 
-        services.AddHttpClient("BackendApi", client =>
-        {
-            client.BaseAddress = new Uri(AppConfiguration["Backend:BaseUrl"]);
-        });
+        //Http Requests
+        services
+            .AddHttpContextAccessor()
+            .AddTransient<AuthTokenHandler>()
+            .AddHttpClient("BackendApi", client =>
+            {
+                client.BaseAddress = new Uri(AppConfiguration["Backend:BaseUrl"]);
+            }
+        ).AddHttpMessageHandler<AuthTokenHandler>();
 
         Ioc.Default.ConfigureServices(services.BuildServiceProvider());
     }

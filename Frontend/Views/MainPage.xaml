@@ -24,6 +24,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <StackPanel
@@ -41,8 +42,13 @@
                     Text="Rejestrator Dokumentów" />
             </StackPanel>
 
-            <Button
+            <TextBlock
                 Grid.Column="1"
+                Padding="12,8"
+                Text="{x:Bind _viewModel.UserName}" />
+
+            <Button
+                Grid.Column="2"
                 Padding="12,8"
                 Command="{x:Bind _viewModel.NavigateToLoginPageCommand}">
                 <StackPanel Orientation="Horizontal" Spacing="8">
@@ -52,20 +58,16 @@
             </Button>
         </Grid>
 
-        <Grid
+        <StackPanel
             Grid.Row="1"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            VerticalAlignment="Center"
+            Orientation="Horizontal"
+            Spacing="24">
 
             <Button
-                Grid.Column="0"
                 Width="260"
                 Height="180"
-                Margin="0,0,12,0"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 BorderThickness="1"
@@ -92,10 +94,8 @@
             </Button>
 
             <Button
-                Grid.Column="1"
                 Width="260"
                 Height="180"
-                Margin="12,0,0,0"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 BorderThickness="1"
@@ -122,10 +122,8 @@
             </Button>
 
             <Button
-                Grid.Column="2"
                 Width="260"
                 Height="180"
-                Margin="12,0,0,0"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 BorderThickness="1"
@@ -147,11 +145,11 @@
                     <TextBlock
                         FontSize="12"
                         Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                        Text="Słownik typów produktów"
+                        Text="Typy pozycji dokumentów"
                         TextAlignment="Center" />
                 </StackPanel>
             </Button>
-        </Grid>
+        </StackPanel>
 
         <TextBlock
             Grid.Row="1"
