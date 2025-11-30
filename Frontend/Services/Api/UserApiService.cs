@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Dtos.RoleDto;
 using Dtos.UserDtos;
 
 namespace Frontend.Services.Api;
@@ -11,6 +12,8 @@ public interface IUserApiService
     Task<IEnumerable<UserDto>> GetUsersAsync();
 
     Task<UserDto> GetUserAsync(int id);
+
+    Task<IEnumerable<RoleDto>> GetAllRolesAsync();
 
     Task UpdateUserAsync(int id, UpdateUserDto dto);
 }
@@ -47,5 +50,14 @@ public class UserApiService : IUserApiService
         var response = await _httpClient.PutAsJsonAsync($"api/user/{id}", dto);
 
         response.EnsureSuccessStatusCode();
+    }
+
+    public async Task<IEnumerable<RoleDto>> GetAllRolesAsync()
+    {
+        var response = await _httpClient.GetAsync("api/role");
+
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadFromJsonAsync<IEnumerable<RoleDto>>();
     }
 }

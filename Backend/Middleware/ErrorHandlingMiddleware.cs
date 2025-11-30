@@ -1,6 +1,6 @@
 ﻿using Backend.Exceptions;
 
-namespace RestaurantAPI.Middleware;
+namespace Backend.Middleware;
 
 public class ErrorHandlingMiddleware : IMiddleware
 {

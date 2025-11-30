@@ -118,7 +118,7 @@
                                 DisplayMemberPath="Name"
                                 ItemsSource="{Binding DataContext.Roles, ElementName=PageRoot}"
                                 PlaceholderText="Wybierz rolę..."
-                                SelectedValue="{Binding RoleId, Mode=TwoWay}"
+                                SelectedValue="{Binding SelectedRole, Mode=TwoWay}"
                                 SelectedValuePath="Id" />
                         </StackPanel>
 
@@ -135,7 +135,7 @@
                         <Button
                             Padding="0,10"
                             HorizontalAlignment="Stretch"
-                            Command="{Binding SaveUserCommand}"
+                            Command="{Binding UserSaveCommand}"
                             CommandParameter="{Binding ElementName=UserPasswordBox}"
                             Style="{ThemeResource AccentButtonStyle}">
                             <StackPanel Orientation="Horizontal" Spacing="8">

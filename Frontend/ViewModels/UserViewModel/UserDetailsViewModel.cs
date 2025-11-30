@@ -1,16 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Dtos.RoleDto;
 using Dtos.UserDtos;
 using Frontend.Helpers;
 using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views.UserPages;
+using Microsoft.UI.Xaml.Controls;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.UserViewModel;
 
 public partial class UserDetailsViewModel : ObjectValidationalViewModel
 {
+    public ObservableCollection<RoleDto> Roles { get; set; } = new();
+
     private readonly IUserApiService _userApiService;
     private readonly IAccountApiService _accountApiService;
     private readonly IDialogService _dialogService;
@@ -19,10 +26,7 @@ public partial class UserDetailsViewModel : ObjectValidationalViewModel
     private UserDto _user = new();
 
     [ObservableProperty]
-    private string _password;
-
-    [ObservableProperty]
-    private int _roleId;
+    private RoleDto? _selectedRole;
 
     public UserDetailsViewModel(
         IUserApiService userApiService,
@@ -37,6 +41,42 @@ public partial class UserDetailsViewModel : ObjectValidationalViewModel
 
     public bool IsEditMode => User.Id != default;
 
+    public async Task LoadDataAsync()
+    {
+        IsLoading = true;
+
+        Roles.Clear();
+
+        RoleDto? selectedRole = null;
+
+        IEnumerable<RoleDto> roles =
+            await ApiHelper.SafeApiCallAsync(
+                () => _userApiService.GetAllRolesAsync(),
+                (error, message) => _dialogService.ShowErrorMessage(message, error))
+            ?? new List<RoleDto>();
+
+        foreach (var role in roles)
+        {
+            if (role.Name == User?.RoleName)
+            {
+                selectedRole = role;
+            }
+
+            Roles.Add(role);
+        }
+
+        if (selectedRole is null)
+        {
+            SelectedRole = roles.Any() ? Roles.First() : null;
+        }
+        else
+        {
+            SelectedRole = selectedRole;
+        }
+
+        IsLoading = false;
+    }
+
     [RelayCommand]
     public void NavigateToUsersPage()
     {
@@ -44,60 +84,69 @@ public partial class UserDetailsViewModel : ObjectValidationalViewModel
     }
 
     [RelayCommand]
-    public async Task OnUserSave()
+    public async Task UserSave(object parameter)
     {
-        bool canProceedWithObject = false;
-
-        if (IsEditMode)
+        if (parameter is PasswordBox passwordBox)
         {
-            var updateUser = new UpdateUserDto()
-            {
-                FirstName = User.FirstName,
-                LastName = User.LastName,
-                Email = User.Email,
-                Password = Password,
-                RoleId = RoleId
-            };
+            IsLoading = true;
 
-            canProceedWithObject = ValidationHelper.ValidateObject(
-                updateUser,
-                ShowValidationErrorsDialogBox);
+            bool canProceedWithObject = false;
+
+            string clearTextPassword = passwordBox.Password;
+
+            if (IsEditMode)
+            {
+                var updateUser = new UpdateUserDto()
+                {
+                    FirstName = User.FirstName,
+                    LastName = User.LastName,
+                    Email = User.Email,
+                    Password = clearTextPassword,
+                    RoleId = SelectedRole.Id
+                };
+
+                canProceedWithObject = ValidationHelper.ValidateObject(
+                    updateUser,
+                    ShowValidationErrorsDialogBox);
+
+                if (canProceedWithObject)
+                {
+                    await ApiHelper.SafeApiCallAsync(
+                        () => _userApiService.UpdateUserAsync(User.Id, updateUser),
+                        (error, _) => _dialogService.ShowErrorMessage("Can't update user", error)
+                    );
+                }
+            }
+            else
+            {
+                var registerUser = new RegisterUserDto()
+                {
+                    Email = User.Email,
+                    FirstName = User.FirstName,
+                    LastName = User.LastName,
+                    Password = clearTextPassword,
+                    RoleId = SelectedRole.Id
+                };
+
+                canProceedWithObject = ValidationHelper.ValidateObject(
+                    registerUser,
+                    ShowValidationErrorsDialogBox);
+
+                if (canProceedWithObject)
+                {
+                    await ApiHelper.SafeApiCallAsync(
+                        () => _accountApiService.RegisterAsync(registerUser),
+                        (error, _) => _dialogService.ShowErrorMessage("Can't create user", error)
+                    );
+                }
+            }
 
             if (canProceedWithObject)
             {
-                await ApiHelper.SafeApiCallAsync(
-                    () => _userApiService.UpdateUserAsync(User.Id, updateUser),
-                    (error, _) => _dialogService.ShowErrorMessage("Can't update user", error)
-                );
+                _navigationService.NavigateTo<UsersPage>();
             }
-        }
-        else
-        {
-            var registerUser = new RegisterUserDto()
-            {
-                Email = User.Email,
-                FirstName = User.FirstName,
-                LastName = User.LastName,
-                Password = Password,
-                RoleId = RoleId
-            };
 
-            canProceedWithObject = ValidationHelper.ValidateObject(
-                registerUser,
-                ShowValidationErrorsDialogBox);
-
-            if (canProceedWithObject)
-            {
-                await ApiHelper.SafeApiCallAsync(
-                    () => _accountApiService.RegisterAsync(registerUser),
-                    (error, _) => _dialogService.ShowErrorMessage("Can't create user", error)
-                );
-            }
-        }
-
-        if (canProceedWithObject)
-        {
-            _navigationService.NavigateTo<UsersPage>();
+            IsLoading = false;
         }
     }
 }

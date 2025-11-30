@@ -140,7 +140,7 @@
                                         Margin="12,0"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                        Text="{Binding RoleId}" />
+                                        Text="{Binding RoleName}" />
 
                                     <StackPanel
                                         Grid.Column="4"

@@ -1,13 +1,13 @@
 using Backend;
 using Backend.Data;
 using Backend.Entities;
+using Backend.Middleware;
 using Backend.Models;
 using Backend.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using RestaurantAPI.Middleware;
 using Scalar.AspNetCore;
 using System.Reflection;
 using System.Text;
@@ -60,6 +60,7 @@ builder.Services.AddScoped<IAdmissionDocumentService, AdmissionDocumentService>(
 builder.Services.AddScoped<IContractorService, ContractorService>();
 builder.Services.AddScoped<IDocumentPositionService, DocumentPositionService>();
 builder.Services.AddScoped<IDocumentPositionTypeService, DocumentPositionTypeService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
 

@@ -23,7 +23,7 @@ public sealed partial class UserDetailsPage : Page
         InitializeComponent();
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
 
@@ -31,5 +31,7 @@ public sealed partial class UserDetailsPage : Page
         {
             _viewModel.User = userDto;
         }
+
+        await _viewModel.LoadDataAsync();
     }
 }
