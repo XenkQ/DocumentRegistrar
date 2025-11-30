@@ -78,9 +78,24 @@ Learning project to create a modern Windows desktop application built with **Win
    Press `F5` to build and launch the application.
 
 ## Screenshots (Polish version)
-![EkranGłówny](https://github.com/user-attachments/assets/61d78a83-17cd-445e-9135-f8a63840a004)
-![DokumentyPrzyjęć](https://github.com/user-attachments/assets/41e8764b-6db1-4d06-af0c-429bb37b83ab)
-![DokumentPrzyjęcia](https://github.com/user-attachments/assets/47dbcf56-698a-41a7-9b37-070708b8b659)
-![PozycjeDokumentu](https://github.com/user-attachments/assets/e72e3021-b705-4d7c-8346-e432f56535a6)
-![kontrahenci](https://github.com/user-attachments/assets/c8cdcff3-05c4-4046-a45c-be8514ba4742)
+### Admin Panel
+<img width="1417" height="737" alt="AdminPanel" src="https://github.com/user-attachments/assets/01967330-b21b-4768-a6ff-49956fa56bd0" />
+### Manager Panel
+<img width="1415" height="733" alt="ManagerMainMenu" src="https://github.com/user-attachments/assets/cd4eadd1-f43e-4383-ac79-66155aff4d74" />
+### User Panel
+<img width="1413" height="734" alt="UserPanel" src="https://github.com/user-attachments/assets/6da2478e-7ee6-4e8b-87e0-e76483ee274f" />
+### Contrahents table view
+<img width="1411" height="732" alt="KontrahenciListView" src="https://github.com/user-attachments/assets/6f888bf0-d6b1-41ac-9aba-4e2ab2942be6" />
+### Contrahent edit / add view
+<img width="1415" height="734" alt="EdycjaKontrahenta" src="https://github.com/user-attachments/assets/0e413420-3c19-49f4-befe-c889641bcbfa" />
+### Admission Documents table view
+<img width="1412" height="730" alt="AdmissionDocumentsListView" src="https://github.com/user-attachments/assets/b5ae45aa-bc7b-4b59-9587-8a81c8a42496" />
+### Admission Document edit / add view
+<img width="1412" height="735" alt="EdycjaDokumentuPrzyjecia" src="https://github.com/user-attachments/assets/73d6971e-5600-4515-9d8d-a63f7e453fa3" />
+### Position Documents under Admission Document table view
+<img width="1417" height="733" alt="DocumentPositionsUnderAdmissionDocumentListView" src="https://github.com/user-attachments/assets/fecafd2f-1c61-4037-b5cc-6ef4b83bb81c" />
+### Position Documents edit / add view
+<img width="1415" height="735" alt="EdycjaPozycjiDokumentu" src="https://github.com/user-attachments/assets/49e912bb-9db4-45a2-bce4-4e2b9f84f7ee" />
+### Login Panel
+<img width="1415" height="734" alt="PanelLogowania" src="https://github.com/user-attachments/assets/a31098e0-21a4-4488-903e-ae8afacf10b2" />
 
