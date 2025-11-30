@@ -13,9 +13,9 @@ public interface IDocumentPositionTypeApiService
 
     public Task<DocumentPositionTypeDto> GetDocumentPositionTypeAsync(int id);
 
-    public Task<int> CreateDocumentPositionTypeAsync(DocumentPositionTypeDto dto);
+    public Task<int> CreateDocumentPositionTypeAsync(CreateDocumentPositionTypeDto dto);
 
-    public Task UpdateDocumentPositionTypeAsync(int id, DocumentPositionTypeDto dto);
+    public Task UpdateDocumentPositionTypeAsync(int id, UpdateDocumentPositionTypeDto dto);
 }
 
 public class DocumentPositionTypeApiService : IDocumentPositionTypeApiService
@@ -45,16 +45,7 @@ public class DocumentPositionTypeApiService : IDocumentPositionTypeApiService
         return await response.Content.ReadFromJsonAsync<DocumentPositionTypeDto>();
     }
 
-    public async Task<AdmissionDocumentDto> GetAdmissionDocumentAsync(int id)
-    {
-        var response = await _httpClient.GetAsync($"api/admission-document/{id}");
-
-        response.EnsureSuccessStatusCode();
-
-        return await response.Content.ReadFromJsonAsync<AdmissionDocumentDto>();
-    }
-
-    public async Task<int> CreateDocumentPositionTypeAsync(DocumentPositionTypeDto dto)
+    public async Task<int> CreateDocumentPositionTypeAsync(CreateDocumentPositionTypeDto dto)
     {
         var response = await _httpClient.PostAsJsonAsync("api/document-position-type", dto);
 
@@ -63,7 +54,7 @@ public class DocumentPositionTypeApiService : IDocumentPositionTypeApiService
         return await response.Content.ReadFromJsonAsync<int>();
     }
 
-    public async Task UpdateDocumentPositionTypeAsync(int id, DocumentPositionTypeDto dto)
+    public async Task UpdateDocumentPositionTypeAsync(int id, UpdateDocumentPositionTypeDto dto)
     {
         var response = await _httpClient.PutAsJsonAsync($"api/document-position-type/{id}", dto);
 

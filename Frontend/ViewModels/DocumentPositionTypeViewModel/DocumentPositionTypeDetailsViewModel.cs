@@ -35,13 +35,13 @@ public partial class DocumentPositionTypeDetailsViewModel : ObjectValidationalVi
     }
 
     [RelayCommand]
-    public async Task OnDocumentPositionTypeSave()
+    public async Task DocumentPositionTypeSave()
     {
         bool canProceedWithObject = false;
 
         if (IsEditMode)
         {
-            var updateDocumentPositionType = new DocumentPositionTypeDto()
+            var updateDocumentPositionType = new UpdateDocumentPositionTypeDto()
             {
                 Name = DocumentPositionType.Name,
             };
@@ -60,7 +60,7 @@ public partial class DocumentPositionTypeDetailsViewModel : ObjectValidationalVi
         }
         else
         {
-            var createDocumentPositionType = new DocumentPositionTypeDto()
+            var createDocumentPositionType = new CreateDocumentPositionTypeDto()
             {
                 Name = DocumentPositionType.Name,
             };
