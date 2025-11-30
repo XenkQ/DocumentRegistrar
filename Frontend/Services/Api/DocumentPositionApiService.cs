@@ -1,4 +1,5 @@
 ﻿using Dtos.AdmissionDocumentDtos;
+using Dtos.CreateDocumentTypeDtos;
 using Dtos.DocumentPositionDtos;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -14,6 +15,8 @@ public interface IDocumentPositionApiService
     public Task<IEnumerable<DocumentPositionDto>> GetDocumentPositionsUnderAdmisionDocumentAsync(int admissionDocumentId);
 
     public Task<AdmissionDocumentDto> GetAdmissionDocumentAsync(int id);
+
+    public Task<IEnumerable<DocumentPositionTypeDto>> GetDocumentPositionTypesAsync();
 
     public Task<int> CreateDocumentPositionAsync(CreateDocumentPositionDto dto);
 
@@ -37,6 +40,15 @@ public class DocumentPositionApiService : IDocumentPositionApiService
         response.EnsureSuccessStatusCode();
 
         return await response.Content.ReadFromJsonAsync<IEnumerable<DocumentPositionDto>>();
+    }
+
+    public async Task<IEnumerable<DocumentPositionTypeDto>> GetDocumentPositionTypesAsync()
+    {
+        var response = await _httpClient.GetAsync($"api/document-position-type");
+
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadFromJsonAsync<IEnumerable<DocumentPositionTypeDto>>();
     }
 
     public async Task<DocumentPositionDto> GetDocumentPositionAsync(int id)

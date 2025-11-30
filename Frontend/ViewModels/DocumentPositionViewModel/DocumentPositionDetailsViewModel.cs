@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Dtos.AdmissionDocumentDtos;
+using Dtos.CreateDocumentTypeDtos;
 using Dtos.DocumentPositionDtos;
 using Frontend.Helpers;
 using Frontend.Services;
@@ -8,17 +9,25 @@ using Frontend.Services.Api;
 using Frontend.Views;
 using Frontend.Views.DocumentPositionPages;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Frontend.ViewModels.DocumentPositionViewModel;
 
 public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewModel
 {
+    public ObservableCollection<DocumentPositionTypeDto> DocumentPositionTypes { get; set; } = new();
+
     private readonly IDocumentPositionApiService _documentPositionApiService;
     private readonly IDialogService _dialogService;
 
     [ObservableProperty]
     private DocumentPositionDto _documentPosition = new();
+
+    [ObservableProperty]
+    private DocumentPositionTypeDto? _selectedDocumentPositionType = null;
 
     public DocumentPositionDetailsViewModel(
         IDocumentPositionApiService documentPositionApiService,
@@ -30,6 +39,42 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
     }
 
     public bool IsEditMode => DocumentPosition.Id != default;
+
+    public async Task LoadDataAsync()
+    {
+        IsLoading = true;
+
+        DocumentPositionTypes.Clear();
+
+        DocumentPositionTypeDto? selectedDocumentPositionType = null;
+
+        IEnumerable<DocumentPositionTypeDto> documentPositionTypes =
+            await ApiHelper.SafeApiCallAsync(
+                () => _documentPositionApiService.GetDocumentPositionTypesAsync(),
+                (error, message) => _dialogService.ShowErrorMessage(message, error))
+            ?? new List<DocumentPositionTypeDto>();
+
+        foreach (var documentPositionType in documentPositionTypes)
+        {
+            if (documentPositionType.Name == _documentPosition?.DocumentPositionTypeName)
+            {
+                selectedDocumentPositionType = documentPositionType;
+            }
+
+            DocumentPositionTypes.Add(documentPositionType);
+        }
+
+        if (selectedDocumentPositionType is null)
+        {
+            SelectedDocumentPositionType = documentPositionTypes.Count() > 0 ? DocumentPositionTypes.First() : null;
+        }
+        else
+        {
+            SelectedDocumentPositionType = selectedDocumentPositionType;
+        }
+
+        IsLoading = false;
+    }
 
     [RelayCommand]
     public async Task NavigateToDocumentPositionsPage()
@@ -49,8 +94,14 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
                 NameOfProduct = DocumentPosition.NameOfProduct,
                 MeasurementUnit = DocumentPosition.MeasurementUnit,
                 Quantity = DocumentPosition.Quantity,
+                UnitPrice = DocumentPosition.UnitPrice,
                 AdmissionDocumentId = DocumentPosition.AdmissionDocumentId
             };
+
+            if (SelectedDocumentPositionType != null)
+            {
+                updateDocumentPosition.DocumentPositionTypeId = SelectedDocumentPositionType.Id;
+            }
 
             canProceedWithObject = ValidationHelper.ValidateObject(
                 updateDocumentPosition,
@@ -71,8 +122,14 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
                 NameOfProduct = DocumentPosition.NameOfProduct,
                 MeasurementUnit = DocumentPosition.MeasurementUnit,
                 Quantity = DocumentPosition.Quantity,
+                UnitPrice = DocumentPosition.UnitPrice,
                 AdmissionDocumentId = DocumentPosition.AdmissionDocumentId
             };
+
+            if (SelectedDocumentPositionType != null)
+            {
+                createDocumentPosition.DocumentPositionTypeId = SelectedDocumentPositionType.Id;
+            }
 
             canProceedWithObject = ValidationHelper.ValidateObject(
                 createDocumentPosition,

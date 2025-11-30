@@ -122,7 +122,6 @@
             BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="8">
-
             <Grid>
                 <Grid
                     Background="{ThemeResource LayerFillColorDefaultBrush}"
@@ -150,7 +149,6 @@
                     ItemsSource="{Binding DocumentPositions}"
                     SelectionMode="Single"
                     Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-
                     <ListView.Header>
                         <Border
                             Padding="0,12"
@@ -158,7 +156,6 @@
                             BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
                             BorderThickness="0,0,0,1"
                             CornerRadius="8,8,0,0">
-
                             <controls:DocumentPositionHeaders Background="Transparent" />
                         </Border>
                     </ListView.Header>
@@ -170,9 +167,12 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*" />
                                         <ColumnDefinition Width="2*" />
-                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1.5*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
+
                                     <TextBlock
                                         Grid.Column="0"
                                         Margin="12,0"
@@ -181,20 +181,37 @@
                                         Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
                                         Text="{Binding NameOfProduct}"
                                         TextTrimming="CharacterEllipsis" />
+
                                     <TextBlock
                                         Grid.Column="1"
                                         Margin="12,0"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                        Text="{Binding MeasurementUnit}" />
+                                        Text="{Binding DocumentPositionTypeName}" />
+
                                     <TextBlock
                                         Grid.Column="2"
                                         Margin="12,0"
                                         VerticalAlignment="Center"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                        Text="{Binding MeasurementUnit}" />
+
+                                    <TextBlock
+                                        Grid.Column="3"
+                                        Margin="12,0"
+                                        VerticalAlignment="Center"
                                         Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
                                         Text="{Binding Quantity}" />
+
+                                    <TextBlock
+                                        Grid.Column="4"
+                                        Margin="12,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                        Text="{Binding UnitPrice, ConverterParameter='{}{0:N2}'}" />
+
                                     <StackPanel
-                                        Grid.Column="3"
+                                        Grid.Column="5"
                                         Margin="0,0,12,0"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"

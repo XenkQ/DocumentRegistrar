@@ -8,12 +8,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend.Views.DocumentPositionPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodel="using:Frontend.ViewModels"
+    x:Name="PageRoot"
     mc:Ignorable="d">
 
     <Page.Resources>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter" />
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -71,14 +72,28 @@
                         Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
                         Text="Dane produktu" />
 
-                    <StackPanel DataContext="{Binding DocumentPosition}" Spacing="20">
+                    <StackPanel Spacing="20">
 
                         <StackPanel Spacing="8">
                             <TextBlock
                                 FontWeight="Medium"
                                 Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
                                 Text="Nazwa" />
-                            <TextBox PlaceholderText="Wprowadź nazwę produktu..." Text="{Binding NameOfProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox PlaceholderText="Wprowadź nazwę produktu..." Text="{Binding DocumentPosition.NameOfProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="8">
+                            <TextBlock
+                                FontWeight="Medium"
+                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                Text="Typ Pozycji" />
+                            <ComboBox
+                                x:Name="DocumentPositionTypeComboBox"
+                                HorizontalAlignment="Stretch"
+                                DisplayMemberPath="Name"
+                                ItemsSource="{Binding DocumentPositionTypes}"
+                                PlaceholderText="Wybierz Typ Pozycji"
+                                SelectedItem="{Binding SelectedDocumentPositionType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
 
                         <StackPanel Spacing="8">
@@ -86,19 +101,41 @@
                                 FontWeight="Medium"
                                 Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
                                 Text="Jednostka" />
-                            <TextBox PlaceholderText="Np. szt, kg, litr" Text="{Binding MeasurementUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox PlaceholderText="Np. szt, kg, litr" Text="{Binding DocumentPosition.MeasurementUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
 
-                        <StackPanel Spacing="8">
-                            <TextBlock
-                                FontWeight="Medium"
-                                Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                                Text="Ilość" />
-                            <TextBox
-                                InputScope="Number"
-                                PlaceholderText="0"
-                                Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
+                        <Grid ColumnSpacing="16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Spacing="8">
+                                <TextBlock
+                                    FontWeight="Medium"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                    Text="Ilość" />
+                                <TextBox
+                                    InputScope="Number"
+                                    PlaceholderText="0"
+                                    Text="{Binding DocumentPosition.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Spacing="8">
+                                <TextBlock
+                                    FontWeight="Medium"
+                                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                    Text="Cena jedn." />
+
+                                <NumberBox
+                                    x:Name="UnitPriceNumberBox"
+                                    LargeChange="1.00"
+                                    PlaceholderText="0.00"
+                                    SmallChange="0.01"
+                                    SpinButtonPlacementMode="Inline"
+                                    Value="{Binding DocumentPosition.UnitPrice, Mode=TwoWay, Converter={StaticResource DoubleToDecimalConverter}}" />
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
 
                     <Grid Margin="0,24,0,0">

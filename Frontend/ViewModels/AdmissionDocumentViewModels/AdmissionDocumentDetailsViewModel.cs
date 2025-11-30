@@ -36,6 +36,8 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
         _dialogService = dialogService;
     }
 
+    public bool IsEditMode => AdmissionDocument.Id != default;
+
     public async Task LoadDataAsync()
     {
         IsLoading = true;
@@ -71,8 +73,6 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
 
         IsLoading = false;
     }
-
-    public bool IsEditMode => AdmissionDocument.Id != default;
 
     [RelayCommand]
     public void NavigateToAdmissionDocumentsPage()

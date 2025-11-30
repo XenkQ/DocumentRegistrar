@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Dtos.DocumentPositionDtos;
+using Frontend.ControlsConfigurators;
 using Frontend.ViewModels.DocumentPositionViewModel;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -21,9 +22,12 @@ public sealed partial class DocumentPositionDetailsPage : Page
         DataContext = _viewModel;
 
         InitializeComponent();
+
+        var numberBoxConfigurator = new NumberBoxConfigurator<NumberBox>();
+        numberBoxConfigurator.ConfigureControl(UnitPriceNumberBox);
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
 
@@ -31,5 +35,7 @@ public sealed partial class DocumentPositionDetailsPage : Page
         {
             _viewModel.DocumentPosition = documentPositionDto;
         }
+
+        await _viewModel.LoadDataAsync();
     }
 }
