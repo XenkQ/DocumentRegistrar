@@ -18,6 +18,13 @@ public class DocumentPositionTypeController : ControllerBase
         _documentPositionTypeService = documentPositionTypeService;
     }
 
+    [HttpGet]
+    [Authorize(Roles = "Admin,Manager,User")]
+    public ActionResult<IEnumerable<string>> GetAll()
+    {
+        return Ok(_documentPositionTypeService.GetAll());
+    }
+
     [HttpGet("{id}")]
     public ActionResult Get(int id)
     {
@@ -32,7 +39,7 @@ public class DocumentPositionTypeController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult Create([FromBody] DocumentPositionTypeDto dto)
+    public ActionResult Create([FromBody] CreateDocumentPositionTypeDto dto)
     {
         if (!ModelState.IsValid)
         {
@@ -42,12 +49,12 @@ public class DocumentPositionTypeController : ControllerBase
         return ControllerHelper.HandleCreate(
             this,
             () => _documentPositionTypeService.Create(dto),
-            "api/document-position"
+            "api/document-position-type"
         );
     }
 
     [HttpPut("{id}")]
-    public ActionResult Update(int id, [FromBody] DocumentPositionTypeDto dto)
+    public ActionResult Update(int id, [FromBody] UpdateDocumentPositionTypeDto dto)
     {
         if (!ModelState.IsValid)
         {

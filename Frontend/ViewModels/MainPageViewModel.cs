@@ -1,14 +1,19 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Frontend.Services;
 using Frontend.Views;
 using Frontend.Views.DocumentPositionTypePages;
+using System.Threading.Tasks;
 
 namespace Frontend.ViewModels;
 
 public partial class MainPageViewModel : ViewModelBase
 {
-    public bool CanShowDocumentPositionTypePanel { get => _userService.IsAdmin() || _userService.IsManager(); }
-    public string UserName { get => _userService.User.Name; }
+    [ObservableProperty]
+    public bool _canShowDocumentPositionTypePanel;
+
+    [ObservableProperty]
+    public string _userName;
 
     private readonly IUserService _userService;
 
@@ -40,5 +45,21 @@ public partial class MainPageViewModel : ViewModelBase
     private void NavigateToLoginPage()
     {
         _navigationService.NavigateTo<LoginPage>();
+    }
+
+    public async Task LoadProperties()
+    {
+        IsLoading = true;
+
+        if (_userService.User == null)
+        {
+            await _userService.LoadUserFromStorage();
+        }
+
+        CanShowDocumentPositionTypePanel = _userService.IsAdmin() || _userService.IsManager();
+
+        UserName = _userService.User.Name;
+
+        IsLoading = false;
     }
 }

@@ -37,7 +37,7 @@ public partial class AdmissionDocumentsViewModel : ViewModelBase
         IEnumerable<AdmissionDocumentDto> admissionDocuments =
             await ApiHelper.SafeApiCallAsync(
                 () => _admissionDocumentApiService.GetAdmissionDocumentsAsync(),
-                error => _dialogService.ShowMessageAsync("Can't retrive data from server", error))
+                (error, message) => _dialogService.ShowErrorMessage(message, error))
             ?? new List<AdmissionDocumentDto>();
 
         foreach (var admissionDocument in admissionDocuments)

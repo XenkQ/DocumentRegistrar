@@ -47,7 +47,6 @@ builder.Services.AddAuthentication(options =>
 });
 
 //Authorization
-
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 //Hashers

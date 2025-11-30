@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Frontend.Views.DocumentPositionTypePages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="DocumentPositionTypesPageRoot"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -133,7 +134,7 @@
                                         <Button
                                             Background="Transparent"
                                             BorderBrush="Transparent"
-                                            Command="{Binding DataContext.NavigateToDocumentPositionTypeDetailsPageCommand, ElementName=Root}"
+                                            Command="{Binding DataContext.NavigateToDocumentPositionTypeDetailsPageCommand, ElementName=DocumentPositionTypesPageRoot}"
                                             CommandParameter="{Binding}"
                                             ToolTipService.ToolTip="Edytuj">
                                             <FontIcon

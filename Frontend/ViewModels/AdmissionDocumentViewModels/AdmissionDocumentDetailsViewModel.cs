@@ -47,7 +47,7 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
         IEnumerable<ContractorDto> contractors =
             await ApiHelper.SafeApiCallAsync(
                 () => _admissionDocumentApiService.GetContractorsAsync(),
-                error => _dialogService.ShowMessageAsync("Can't retrive data from server", error))
+                (error, message) => _dialogService.ShowErrorMessage(message, error))
             ?? new List<ContractorDto>();
 
         foreach (var contractor in contractors)
@@ -102,7 +102,7 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
             {
                 await ApiHelper.SafeApiCallAsync(
                     () => _admissionDocumentApiService.UpdateAdmissionDocumentAsync(AdmissionDocument.Id, updateAdmissionDocument),
-                    error => _dialogService.ShowMessageAsync("Can't update admission document", error)
+                    (error, _) => _dialogService.ShowErrorMessage("Can't update admission document", error)
                 );
             }
         }
@@ -123,7 +123,7 @@ public partial class AdmissionDocumentDetailsViewModel : ObjectValidationalViewM
             {
                 await ApiHelper.SafeApiCallAsync(
                     () => _admissionDocumentApiService.CreateAdmissionDocumentAsync(createAdmissionDocument),
-                    error => _dialogService.ShowMessageAsync("Can't create admission document", error)
+                    (error, _) => _dialogService.ShowErrorMessage("Can't create admission document", error)
                 );
             }
         }

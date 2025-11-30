@@ -41,7 +41,7 @@ public partial class DocumentPositionsViewModel : ViewModelBase
         IEnumerable<DocumentPositionDto> documentPositions =
             await ApiHelper.SafeApiCallAsync(
                 () => _documentPositionApiService.GetDocumentPositionsUnderAdmisionDocumentAsync(admissionDocumentId),
-                error => _dialogService.ShowMessageAsync("Can't retrive data from server", error))
+                (error, message) => _dialogService.ShowErrorMessage(message, error))
             ?? new List<DocumentPositionDto>();
 
         foreach (var documentPosition in documentPositions)

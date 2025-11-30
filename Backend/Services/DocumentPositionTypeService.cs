@@ -7,11 +7,13 @@ namespace Backend.Services;
 
 public interface IDocumentPositionTypeService
 {
-    public int Create(DocumentPositionTypeDto dto);
+    public int Create(CreateDocumentPositionTypeDto dto);
 
     public DocumentPositionTypeDto GetById(int id);
 
-    public bool Update(int id, DocumentPositionTypeDto dto);
+    public IEnumerable<DocumentPositionTypeDto> GetAll();
+
+    public bool Update(int id, UpdateDocumentPositionTypeDto dto);
 }
 
 public class DocumentPositionTypeService : IDocumentPositionTypeService
@@ -23,6 +25,15 @@ public class DocumentPositionTypeService : IDocumentPositionTypeService
     {
         _dbContext = dbContext;
         _mapper = mapper;
+    }
+
+    public IEnumerable<DocumentPositionTypeDto> GetAll()
+    {
+        List<DocumentPositionType> documentPositionTypes = _dbContext
+            .DocumentPositionTypes
+            .ToList();
+
+        return _mapper.Map<List<DocumentPositionTypeDto>>(documentPositionTypes);
     }
 
     public DocumentPositionTypeDto GetById(int id)
@@ -39,7 +50,7 @@ public class DocumentPositionTypeService : IDocumentPositionTypeService
         return _mapper.Map<DocumentPositionTypeDto>(documentPositionType);
     }
 
-    public int Create(DocumentPositionTypeDto dto)
+    public int Create(CreateDocumentPositionTypeDto dto)
     {
         DocumentPositionType DocumentPositionType = _mapper.Map<DocumentPositionType>(dto);
 
@@ -50,7 +61,7 @@ public class DocumentPositionTypeService : IDocumentPositionTypeService
         return DocumentPositionType.Id;
     }
 
-    public bool Update(int id, DocumentPositionTypeDto dto)
+    public bool Update(int id, UpdateDocumentPositionTypeDto dto)
     {
         DocumentPositionType? documentPositionType = _dbContext
             .DocumentPositionTypes

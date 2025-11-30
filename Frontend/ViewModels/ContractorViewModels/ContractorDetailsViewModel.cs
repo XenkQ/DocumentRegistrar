@@ -6,6 +6,7 @@ using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Frontend.ViewModels.ContractorViewModels;
 
@@ -55,7 +56,7 @@ public partial class ContractorDetailsViewModel : ObjectValidationalViewModel
             {
                 await ApiHelper.SafeApiCallAsync(
                      () => _contractorApiService.UpdateContractorAsync(Contractor.Id, updateContractor),
-                     error => _dialogService.ShowMessageAsync("Can't update contractor", error)
+                     (error, _) => _dialogService.ShowErrorMessage("Can't update contractor", error)
                 );
             }
         }
@@ -75,7 +76,7 @@ public partial class ContractorDetailsViewModel : ObjectValidationalViewModel
             {
                 await ApiHelper.SafeApiCallAsync(
                      () => _contractorApiService.CreateContractorAsync(createContractor),
-                     error => _dialogService.ShowMessageAsync("Can't create contractor", error)
+                     (error, _) => _dialogService.ShowErrorMessage("Can't create contractor", error)
                 );
             }
         }

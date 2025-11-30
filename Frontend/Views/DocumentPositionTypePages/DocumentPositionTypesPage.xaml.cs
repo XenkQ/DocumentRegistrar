@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Dtos.CreateDocumentTypeDtos;
 using Frontend.ViewModels.DocumentPositionTypeViewModel;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;

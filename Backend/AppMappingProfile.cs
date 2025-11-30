@@ -17,11 +17,14 @@ public class AppMappingProfile : Profile
         CreateMap<CreateAdmissionDocumentDto, AdmissionDocument>();
         CreateMap<UpdateAdmissionDocumentDto, AdmissionDocument>();
 
-        CreateMap<DocumentPosition, DocumentPositionDto>();
+        CreateMap<DocumentPosition, DocumentPositionDto>()
+            .ForMember(dest => dest.DocumentPositionTypeName, opt => opt.MapFrom(src => src.DocumentPositionType.Name));
         CreateMap<CreateDocumentPositionDto, DocumentPosition>();
         CreateMap<UpdateDocumentPositionDto, DocumentPosition>();
 
         CreateMap<DocumentPositionTypeDto, DocumentPositionType>();
+        CreateMap<UpdateDocumentPositionTypeDto, DocumentPositionType>();
+        CreateMap<CreateDocumentPositionTypeDto, DocumentPositionType>();
         CreateMap<DocumentPositionType, DocumentPositionTypeDto>();
 
         CreateMap<Contractor, ContractorDto>();

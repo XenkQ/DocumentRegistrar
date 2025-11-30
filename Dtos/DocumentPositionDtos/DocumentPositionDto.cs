@@ -24,5 +24,5 @@ public class DocumentPositionDto
     public int AdmissionDocumentId { get; set; }
 
     [Required]
-    public int DocumentPositionTypeId { get; set; }
+    public string DocumentPositionTypeName { get; set; }
 }

@@ -5,7 +5,6 @@ using Frontend.Services;
 using Frontend.Services.Api;
 using Frontend.Views;
 using Frontend.Views.ContractorPages;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -37,7 +36,7 @@ public partial class ContractorsViewModel : ViewModelBase
         IEnumerable<ContractorDto> contractors =
             await ApiHelper.SafeApiCallAsync(
                 () => _contractorApiService.GetContractorsAsync(),
-                error => _dialogService.ShowMessageAsync("Can't retrive data from server", error))
+                (error, message) => _dialogService.ShowErrorMessage(message, error))
             ?? new List<ContractorDto>();
 
         foreach (var contractor in contractors)

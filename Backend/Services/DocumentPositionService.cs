@@ -32,6 +32,7 @@ public class DocumentPositionService : IDocumentPositionService
     {
         DocumentPosition? DocumentPosition = _dbContext
             .DocumentPositions
+            .Include(dp => dp.DocumentPositionType)
             .FirstOrDefault(dp => dp.Id == id);
 
         if (DocumentPosition is null)
@@ -47,6 +48,7 @@ public class DocumentPositionService : IDocumentPositionService
         AdmissionDocument? admissionDocument = _dbContext
             .AdmissionDocuments
             .Include(ad => ad.DocumentPositions)
+                .ThenInclude(dp => dp.DocumentPositionType)
             .FirstOrDefault(ad => ad.Id == admissionDocumentId);
 
         if (admissionDocument is null)
@@ -54,9 +56,9 @@ public class DocumentPositionService : IDocumentPositionService
             return new List<DocumentPositionDto>();
         }
 
-        List<DocumentPosition> DocumentPositions = admissionDocument.DocumentPositions;
+        List<DocumentPosition> documentPositions = admissionDocument.DocumentPositions;
 
-        return _mapper.Map<List<DocumentPositionDto>>(DocumentPositions);
+        return _mapper.Map<List<DocumentPositionDto>>(documentPositions);
     }
 
     public int Create(CreateDocumentPositionDto dto)

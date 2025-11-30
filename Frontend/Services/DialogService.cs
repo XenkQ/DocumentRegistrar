@@ -7,12 +7,26 @@ namespace Frontend.Services;
 
 public interface IDialogService
 {
-    public Task ShowMessageAsync(string title, string message);
+    public Task ShowErrorMessage(string title, Exception ex);
+
+    public Task ShowErrorMessage(string title, string message);
+
+    public Task ShowMessage(string title, string message);
 }
 
 public class DialogService : IDialogService
 {
-    public async Task ShowMessageAsync(string title, string message)
+    public async Task ShowErrorMessage(string title, Exception ex)
+    {
+        await ShowMessage(title, ex.Message);
+    }
+
+    public async Task ShowErrorMessage(string title, string message)
+    {
+        await ShowMessage(title, message);
+    }
+
+    public async Task ShowMessage(string title, string message)
     {
         XamlRoot? xamlRoot = App.Current.MainWindow.DisplayedPage.XamlRoot;
 

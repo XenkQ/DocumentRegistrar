@@ -73,12 +73,12 @@ public sealed partial class App : Application
         //Http Requests
         services
             .AddHttpContextAccessor()
-            .AddTransient<AuthTokenHandler>()
+            .AddTransient<RequestHandlingMiddleware>()
             .AddHttpClient("BackendApi", client =>
             {
                 client.BaseAddress = new Uri(AppConfiguration["Backend:BaseUrl"]);
             }
-        ).AddHttpMessageHandler<AuthTokenHandler>();
+        ).AddHttpMessageHandler<RequestHandlingMiddleware>();
 
         Ioc.Default.ConfigureServices(services.BuildServiceProvider());
     }

@@ -60,7 +60,7 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
             {
                 await ApiHelper.SafeApiCallAsync(
                     () => _documentPositionApiService.UpdateDocumentPositionAsync(DocumentPosition.Id, updateDocumentPosition),
-                    error => _dialogService.ShowMessageAsync("Can't update document position", error)
+                    (error, _) => _dialogService.ShowErrorMessage("Can't update document position", error)
                 );
             }
         }
@@ -82,7 +82,7 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
             {
                 await ApiHelper.SafeApiCallAsync(
                     () => _documentPositionApiService.CreateDocumentPositionAsync(createDocumentPosition),
-                    error => _dialogService.ShowMessageAsync("Can't create document position", error)
+                    (error, _) => _dialogService.ShowErrorMessage("Can't create document position", error)
                 );
             }
         }
@@ -98,9 +98,9 @@ public partial class DocumentPositionDetailsViewModel : ObjectValidationalViewMo
         AdmissionDocumentDto? relatedAdmissionDocument =
             await ApiHelper.SafeApiCallAsync(
                 () => _documentPositionApiService.GetAdmissionDocumentAsync(DocumentPosition.AdmissionDocumentId),
-                error =>
+                (error, message) =>
                 {
-                    _dialogService.ShowMessageAsync("Can't retrive data from server", error);
+                    _dialogService.ShowErrorMessage(message, error);
                     _navigationService.NavigateTo<AdmissionDocumentsPage>();
                 });
 

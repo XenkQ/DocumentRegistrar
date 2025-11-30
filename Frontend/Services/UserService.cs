@@ -5,9 +5,11 @@ namespace Frontend.Services;
 
 public interface IUserService
 {
-    User User { get; }
+    User? User { get; }
 
     Task SetAndSaveUserAsync(User user);
+
+    Task LoadUserFromStorage();
 
     bool IsAdmin();
 
@@ -18,15 +20,13 @@ public interface IUserService
 
 public class UserService : IUserService
 {
-    public User User { get; private set; } = new User();
+    public User? User { get; private set; }
 
     private readonly ILocalStorageService _localStorageService;
 
     public UserService(ILocalStorageService localStorageService)
     {
         _localStorageService = localStorageService;
-
-        SetUserFromStorage();
     }
 
     public bool IsAdmin() => User?.RoleName == "Admin";
@@ -52,7 +52,7 @@ public class UserService : IUserService
         User = user;
     }
 
-    private async Task SetUserFromStorage()
+    public async Task LoadUserFromStorage()
     {
         var user = await _localStorageService.ReadAsync<User>(LocalStorageService.Keys.User);
 

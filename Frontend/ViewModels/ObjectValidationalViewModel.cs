@@ -18,7 +18,7 @@ namespace Frontend.ViewModels
 
         protected void ShowValidationErrorsDialogBox(IEnumerable<ValidationResult> validationResults)
         {
-            _dialogService.ShowMessageAsync(
+            _dialogService.ShowErrorMessage(
                 "Validation Error",
                 string.Join('\n', validationResults.ToList().Select(vr => vr.ErrorMessage)
                 ));

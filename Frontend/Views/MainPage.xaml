@@ -45,7 +45,7 @@
             <TextBlock
                 Grid.Column="1"
                 Padding="12,8"
-                Text="{x:Bind _viewModel.UserName}" />
+                Text="{x:Bind _viewModel.UserName, Mode=OneWay}" />
 
             <Button
                 Grid.Column="2"

@@ -54,7 +54,7 @@ public partial class DocumentPositionTypeDetailsViewModel : ObjectValidationalVi
             {
                 await ApiHelper.SafeApiCallAsync(
                      () => _documentPositionTypeApiService.UpdateDocumentPositionTypeAsync(DocumentPositionType.Id, updateDocumentPositionType),
-                     error => _dialogService.ShowMessageAsync("Can't update documentPositionType", error)
+                     (error, _) => _dialogService.ShowErrorMessage("Can't update documentPositionType", error)
                 );
             }
         }
@@ -73,7 +73,7 @@ public partial class DocumentPositionTypeDetailsViewModel : ObjectValidationalVi
             {
                 await ApiHelper.SafeApiCallAsync(
                      () => _documentPositionTypeApiService.CreateDocumentPositionTypeAsync(createDocumentPositionType),
-                     error => _dialogService.ShowMessageAsync("Can't create documentPositionType", error)
+                     (error, _) => _dialogService.ShowErrorMessage("Can't create documentPositionType", error)
                 );
             }
         }
