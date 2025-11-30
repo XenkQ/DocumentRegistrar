@@ -64,13 +64,6 @@
 
                 <StackPanel Spacing="20">
 
-                    <TextBlock
-                        Margin="0,0,0,8"
-                        FontSize="18"
-                        FontWeight="SemiBold"
-                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-                        Text="Edycja danych" />
-
                     <StackPanel Spacing="8">
                         <TextBlock
                             FontWeight="Medium"
