@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Frontend.Services;
 
-public interface IUserService
+public interface IUserContextService
 {
     User? User { get; }
 
@@ -18,13 +18,13 @@ public interface IUserService
     bool IsUser();
 }
 
-public class UserService : IUserService
+public class UserContextService : IUserContextService
 {
     public User? User { get; private set; }
 
     private readonly ILocalStorageService _localStorageService;
 
-    public UserService(ILocalStorageService localStorageService)
+    public UserContextService(ILocalStorageService localStorageService)
     {
         _localStorageService = localStorageService;
     }

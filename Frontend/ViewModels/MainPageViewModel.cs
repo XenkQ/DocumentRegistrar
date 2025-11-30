@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Frontend.Services;
 using Frontend.Views;
 using Frontend.Views.DocumentPositionTypePages;
+using Frontend.Views.UserPages;
 using System.Threading.Tasks;
 
 namespace Frontend.ViewModels;
@@ -13,11 +14,14 @@ public partial class MainPageViewModel : ViewModelBase
     public bool _canShowDocumentPositionTypePanel;
 
     [ObservableProperty]
+    public bool _canShowUsersPanel;
+
+    [ObservableProperty]
     public string _userName;
 
-    private readonly IUserService _userService;
+    private readonly IUserContextService _userService;
 
-    public MainPageViewModel(IUserService userService, INavigationService navigationService)
+    public MainPageViewModel(IUserContextService userService, INavigationService navigationService)
         : base(navigationService)
     {
         _userService = userService;
@@ -42,6 +46,12 @@ public partial class MainPageViewModel : ViewModelBase
     }
 
     [RelayCommand]
+    private void NavigateToUsers()
+    {
+        _navigationService.NavigateTo<UsersPage>();
+    }
+
+    [RelayCommand]
     private void NavigateToLoginPage()
     {
         _navigationService.NavigateTo<LoginPage>();
@@ -57,6 +67,8 @@ public partial class MainPageViewModel : ViewModelBase
         }
 
         CanShowDocumentPositionTypePanel = _userService.IsAdmin() || _userService.IsManager();
+
+        CanShowUsersPanel = _userService.IsAdmin();
 
         UserName = _userService.User.Name;
 

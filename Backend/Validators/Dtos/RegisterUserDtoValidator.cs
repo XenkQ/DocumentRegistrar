@@ -18,12 +18,11 @@ public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
                 }
             });
 
-        RuleFor(r => r.FirstName).NotEmpty();
-
         RuleFor(r => r.Password)
-            .NotEmpty()
-            .MinimumLength(6)
-            .Equal(r => r.ConfirmPassword);
+            .MaximumLength(200)
+            .NotEmpty();
+
+        RuleFor(r => r.FirstName).NotEmpty();
 
         RuleFor(r => r.RoleId).NotEmpty();
     }

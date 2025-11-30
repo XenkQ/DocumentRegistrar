@@ -10,10 +10,10 @@ namespace Frontend.Handlers;
 
 public class RequestHandlingMiddleware : DelegatingHandler
 {
-    private readonly IUserService _userService;
+    private readonly IUserContextService _userService;
     private readonly ILogger<RequestHandlingMiddleware> _logger;
 
-    public RequestHandlingMiddleware(IUserService userService, ILogger<RequestHandlingMiddleware> logger)
+    public RequestHandlingMiddleware(IUserContextService userService, ILogger<RequestHandlingMiddleware> logger)
     {
         _userService = userService;
         _logger = logger;

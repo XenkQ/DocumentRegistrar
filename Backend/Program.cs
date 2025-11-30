@@ -61,6 +61,7 @@ builder.Services.AddScoped<IContractorService, ContractorService>();
 builder.Services.AddScoped<IDocumentPositionService, DocumentPositionService>();
 builder.Services.AddScoped<IDocumentPositionTypeService, DocumentPositionTypeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 //Middleware
 builder.Services.AddScoped<ErrorHandlingMiddleware>();

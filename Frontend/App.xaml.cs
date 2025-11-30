@@ -7,6 +7,7 @@ using Frontend.ViewModels.AdmissionDocumentViewModels;
 using Frontend.ViewModels.ContractorViewModels;
 using Frontend.ViewModels.DocumentPositionTypeViewModel;
 using Frontend.ViewModels.DocumentPositionViewModel;
+using Frontend.ViewModels.UserViewModel;
 using Frontend.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,7 +48,7 @@ public sealed partial class App : Application
             .AddSingleton<ILocalStorageService, LocalStorageService>()
             .AddSingleton<INavigationService, NavigationService>()
             .AddSingleton<IAccountApiService, AccountApiService>()
-            .AddSingleton<IUserService, UserService>()
+            .AddSingleton<IUserContextService, UserContextService>()
             .AddSingleton<IDialogService, DialogService>()
             .AddSingleton<MainPageViewModel>()
             //Contractor
@@ -68,7 +69,11 @@ public sealed partial class App : Application
             .AddSingleton<IDocumentPositionTypeApiService, DocumentPositionTypeApiService>()
             //Login
             .AddSingleton<LoginViewModel>()
-            .AddTransient<LoginPage>();
+            .AddTransient<LoginPage>()
+            //User
+            .AddSingleton<UsersViewModel>()
+            .AddTransient<UserDetailsViewModel>()
+            .AddSingleton<IUserApiService, UserApiService>();
 
         //Http Requests
         services

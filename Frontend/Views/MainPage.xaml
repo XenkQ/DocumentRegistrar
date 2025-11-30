@@ -149,6 +149,35 @@
                         TextAlignment="Center" />
                 </StackPanel>
             </Button>
+
+            <Button
+                Width="260"
+                Height="180"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="1"
+                Command="{x:Bind _viewModel.NavigateToUsersCommand}"
+                CornerRadius="8"
+                Visibility="{x:Bind _viewModel.CanShowUsersPanel, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                <StackPanel Spacing="16">
+                    <FontIcon
+                        FontSize="48"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Glyph="&#xE779;" />
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Medium"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="Użytkownicy"
+                        TextAlignment="Center" />
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                        Text="Zarządzaj dostępem"
+                        TextAlignment="Center" />
+                </StackPanel>
+            </Button>
         </StackPanel>
 
         <TextBlock

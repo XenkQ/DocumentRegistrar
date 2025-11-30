@@ -4,6 +4,7 @@ using Dtos.AdmissionDocumentDtos;
 using Dtos.ContractorsDtos;
 using Dtos.CreateDocumentTypeDtos;
 using Dtos.DocumentPositionDtos;
+using Dtos.UserDtos;
 
 namespace Backend;
 
@@ -30,5 +31,9 @@ public class AppMappingProfile : Profile
         CreateMap<Contractor, ContractorDto>();
         CreateMap<UpdateContractorDto, Contractor>();
         CreateMap<CreateContractorDto, Contractor>();
+
+        CreateMap<User, UserDto>()
+            .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name));
+        CreateMap<UpdateUserDto, User>();
     }
 }

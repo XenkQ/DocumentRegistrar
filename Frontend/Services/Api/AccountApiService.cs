@@ -19,10 +19,10 @@ public interface IAccountApiService
 
 public class AccountApiService : IAccountApiService
 {
-    private readonly IUserService _userService;
+    private readonly IUserContextService _userService;
     private readonly HttpClient _httpClient;
 
-    public AccountApiService(IHttpClientFactory httpClientFactory, IUserService userService)
+    public AccountApiService(IHttpClientFactory httpClientFactory, IUserContextService userService)
     {
         _httpClient = httpClientFactory.CreateClient("BackendApi");
         _userService = userService;
